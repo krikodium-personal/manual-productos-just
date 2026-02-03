@@ -41,7 +41,8 @@ interface Product {
     ingredients?: any[];
 }
 
-export default function SearchPage() {
+// Main Content
+function SearchContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialQuery = searchParams.get('q') || '';
@@ -277,5 +278,13 @@ export default function SearchPage() {
                         ))}
             </div>
         </main>
+    );
+}
+
+export default function SearchPage() {
+    return (
+        <React.Suspense fallback={<div className={styles.searchResultsPage}><Header title="Buscando..." showSearch={false} /></div>}>
+            <SearchContent />
+        </React.Suspense>
     );
 }
