@@ -6,7 +6,7 @@ import { createDirectus, rest } from '@directus/sdk';
 // Client-side: Use proxy to avoid CORS
 const DIRECTUS_URL = typeof window === 'undefined'
     ? (process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055')
-    : '/api/directus';
+    : `${window.location.origin}/api/directus`;
 
 export const directus = createDirectus(DIRECTUS_URL).with(rest());
 
