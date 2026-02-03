@@ -1,0 +1,51 @@
+services:
+  database:
+    image: postgis/postgis:13-master
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'directus'
+      POSTGRES_PASSWORD: 'directus'
+      POSTGRES_DB: 'directus'
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  directus:
+    image: directus/directus:latest
+    ports:
+      - 8055:8055
+    volumes:
+      - ./uploads:/directus/uploads
+      - ./extensions:/directus/extensions
+    depends_on:
+      - database
+      - elasticsearch
+    environment:
+      KEY: '255b5966-7b4c-4735-86f7-c9902f232328'
+      SECRET: '6a87c1be-74de-4050-998e-4a64c4897c36'
+      ADMIN_EMAIL: 'admin@example.com'
+      ADMIN_PASSWORD: 'password'
+      DB_CLIENT: 'pg'
+      DB_HOST: 'database'
+      DB_PORT: '5432'
+      DB_DATABASE: 'directus'
+      DB_USER: 'directus'
+      DB_PASSWORD: 'directus'
+      WEBSOCKETS_ENABLED: 'true'
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: 'http://localhost:3000'
+      PUBLIC_URL: 'http://localhost:8055'
+      SEARCH_INDEX: 'elasticsearch'
+      ELASTICSEARCH_HOST: 'http://elasticsearch:9200'
+
+volumes:
+  elasticsearch-data:

@@ -1,0 +1,12 @@
+node_modules
+.DS_Store
+.env
+.env.local
+cms/database
+cms/uploads
+cms/extensions
+.next
+out
+build
+dist
+directus_dump.sql
