@@ -52,13 +52,14 @@ interface Product {
     show_uses_suggestions?: boolean;
     show_demo_tips?: boolean;
     show_combinations?: boolean;
-    show_tradition?: boolean;
-    show_attributes?: boolean;
     show_precautions?: boolean;
 
     // files
     datasheet?: string;
     flyer?: string;
+
+    // External
+    ecommerce_url?: string;
 }
 
 export default function ProductPage() {
@@ -161,7 +162,8 @@ export default function ProductPage() {
                         'custom_usage_modes.application_amount.unit',
                         'custom_usage_modes.application_amount.name',
                         'datasheet', // [NEW] Fetch datasheet file ID
-                        'flyer'      // [NEW] Fetch flyer file ID
+                        'flyer',     // [NEW] Fetch flyer file ID
+                        'ecommerce_url' // [NEW] Fetch ecommerce URL
                     ]
                 }));
 
