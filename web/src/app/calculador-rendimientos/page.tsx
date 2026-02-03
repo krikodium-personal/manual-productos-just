@@ -48,7 +48,8 @@ interface Product {
     attributes?: any[];
 }
 
-export default function CalculatorPage() {
+// Main Content Component
+function CalculatorContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -714,5 +715,13 @@ ${productUrl}`;
                 </div>
             )}
         </div>
+    );
+}
+
+export default function CalculatorPage() {
+    return (
+        <React.Suspense fallback={<div className={styles.main}><Header title="Calculador..." /></div>}>
+            <CalculatorContent />
+        </React.Suspense>
     );
 }
