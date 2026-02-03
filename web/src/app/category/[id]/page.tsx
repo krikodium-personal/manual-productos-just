@@ -34,7 +34,8 @@ interface Category {
     children?: Category[];
 }
 
-export default function CategoryPage() {
+// Main Content
+function CategoryContent() {
     const params = useParams();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -317,5 +318,16 @@ export default function CategoryPage() {
                 </div>
             </div>
         </main>
+    );
+}
+
+// Default export with Suspense
+import React, { Suspense } from 'react';
+
+export default function CategoryPage() {
+    return (
+        <Suspense fallback={<div className={styles.main}><Header /></div>}>
+            <CategoryContent />
+        </Suspense>
     );
 }

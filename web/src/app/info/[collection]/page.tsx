@@ -17,7 +17,8 @@ interface Need {
     suggested_products?: any[];
 }
 
-export default function InfoPage() {
+// Main Content
+function InfoContent() {
     const params = useParams();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -214,5 +215,15 @@ export default function InfoPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+import React, { Suspense } from 'react';
+
+export default function InfoPage() {
+    return (
+        <Suspense fallback={<div className={styles.main}><Header /></div>}>
+            <InfoContent />
+        </Suspense>
     );
 }
