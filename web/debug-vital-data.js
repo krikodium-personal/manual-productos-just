@@ -1,0 +1,30 @@
+const { createDirectus, rest, readItems } = require('@directus/sdk');
+
+const url = 'http://localhost:8055';
+const directus = createDirectus(url).with(rest());
+
+async function checkData() {
+    try {
+        console.log('Authenticating...');
+        const authResponse = await fetch(`${url}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: 'admin@example.com', password: 'password' })
+        });
+        const authData = await authResponse.json();
+        const token = authData.data.access_token;
+
+        console.log('Fetching vital_just_content...');
+        const response = await fetch(`${url}/items/vital_just_content?fields=*.*`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+
+        console.log('Data:', JSON.stringify(data.data, null, 2));
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+checkData();

@@ -1,0 +1,219 @@
+/* Ingredients CSS Module */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px 32px;
+    /* Adjusted padding to match layout flow */
+    gap: 24px;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
+}
+
+/* Header Spacer if needed for absolute header, but we'll use standard header height */
+.headerSpacer {
+    height: 132px;
+    /* 60px header + 72px search bar logic */
+    width: 100%;
+}
+
+/* Custom Header with Search Bar Integration */
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    position: fixed;
+    /* Fixed as per user CSS implying absolute top */
+    width: 100%;
+    max-width: 375px;
+    /* Assuming mobile-first design spec */
+    height: 132px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    filter: drop-shadow(0px 1px 17px rgba(23, 26, 34, 0.06));
+    border-radius: 0px 0px 16px 16px;
+    background: #FFFFFF;
+}
+
+.topBar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #FFFFFF;
+}
+
+.backButton {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 20px;
+    top: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerTitle {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #171A22;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 16px 16px;
+    gap: 20px;
+    width: 100%;
+    height: 72px;
+    background: #FFFFFF;
+    border-radius: 0px 0px 16px 16px;
+}
+
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 8px;
+    width: 100%;
+    height: 56px;
+    background: #ECF5FE;
+    border-radius: 16px;
+}
+
+.searchInput {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #104E7E;
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.searchInput::placeholder {
+    color: #104E7E;
+    opacity: 1;
+}
+
+.searchIcon {
+    width: 24px;
+    height: 24px;
+    color: #5AAFF1;
+    /* Vector color from CSS */
+}
+
+/* List Content */
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 16px;
+    gap: 16px;
+    /* Gap between groups */
+    width: 100%;
+    max-width: 375px;
+    margin-top: 132px;
+    /* Clear fixed header */
+}
+
+.groupContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+}
+
+.groupHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+    height: 24px;
+}
+
+.groupTitle {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 100%;
+}
+
+.itemLink {
+    display: flex;
+    flex-direction: column;
+    /* To include divider */
+    width: 100%;
+    text-decoration: none;
+}
+
+.itemContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 0px;
+    gap: 12px;
+    width: 100%;
+    height: 36px;
+}
+
+.itemName {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    flex-grow: 1;
+}
+
+.chevronIcon {
+    width: 16px;
+    height: 16px;
+    color: #5AAFF1;
+    /* Vector color */
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #DDDDDD;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}

@@ -1,0 +1,201 @@
+/* Main Container */
+.main {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content Container */
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 32px;
+    gap: 24px;
+    width: 100%;
+}
+
+/* Category Description */
+.categoryDescription {
+    width: 100%;
+    font-family: 'Museo Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #908F9A;
+    align-self: stretch;
+}
+
+/* Subcategories Wrapper */
+.subcategoriesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Accordion Item Wrapper */
+.accordionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Accordion Header */
+.accordionHeader {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 0px 16px;
+    gap: 16px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+
+.accordionHeaderContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Accordion Title */
+.accordionTitle {
+    font-family: 'Museo Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+}
+
+/* Chevron */
+.chevron {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+/* Product List Container inside Accordion */
+.productList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Product Item */
+.productItem {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 0px 16px;
+    gap: 20px;
+    width: 100%;
+    /* height: 74px; Avoiding fixed height to allow wrapping, but min-height preserves rhythm */
+    min-height: 74px;
+    border-bottom: 1px solid #DDDDDD;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* User specified flex props */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Image Container */
+.productImageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 58px;
+    height: 58px;
+    /* Asset_Image_Small styles */
+    background: #FFFFFF;
+    box-shadow: 3px 3px 5px rgba(136, 137, 219, 0.1);
+    border-radius: 8px;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.productImage {
+    width: auto;
+    height: 90%;
+    object-fit: contain;
+}
+
+/* Product Info Block */
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    /* Reduced from 20px to match visual reference */
+    flex-grow: 1;
+}
+
+.productName {
+    font-family: 'Museo Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+}
+
+.productMeta {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+}
+
+.productCode {
+    font-family: 'Museo Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #908F9A;
+}
+
+.chevronRight {
+    width: 16px;
+    height: 16px;
+    color: #5AAFF1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

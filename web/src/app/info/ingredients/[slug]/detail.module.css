@@ -1,0 +1,207 @@
+/* Ingredient Detail CSS */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #FFFFFF;
+    position: relative;
+    padding-bottom: 0;
+}
+
+/* Header is handled by global component but we need to ensure spacing */
+.headerSpacer {
+    height: 60px;
+    width: 100%;
+}
+
+/* Hero Image Section */
+.heroImageContainer {
+    width: 100%;
+    height: 264px;
+    background: #FDFBF4;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.heroImage {
+    height: 100%;
+    /* Cover height */
+    width: auto;
+    object-fit: contain;
+    /* Contain to show full product/ingredient if meaningful, or cover? CSS "background url" usually implies cover or specific positioning. User CSS had mix-blend-mode multiply, implying it's a product shot on white/transparent. */
+    mix-blend-mode: multiply;
+}
+
+/* Info Section */
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 16px;
+    gap: 24px;
+    width: 100%;
+    max-width: 375px;
+    background: #FFFFFF;
+    /* Ensure it covers if needed */
+}
+
+.titleWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #171A22;
+    margin: 0;
+    width: 100%;
+}
+
+.descriptionWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+.description {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #908F9A;
+    width: 100%;
+}
+
+.ctaButton {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    gap: 4px;
+    width: 100%;
+    height: 56px;
+    border: 1.5px solid #5AAFF1;
+    border-radius: 12px;
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 24px;
+    /* Default spacing if needed, though descriptionWrapper has gap 32px */
+}
+
+.ctaText {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #5AAFF1;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Related Products Section */
+.productsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+    gap: 24px;
+    width: 100%;
+    background: #F9F9FC;
+    flex-grow: 1;
+}
+
+.productsTitle {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.productsList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+}
+
+.productItem {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 0px 16px;
+    gap: 20px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+    text-decoration: none;
+}
+
+.productImageWrapper {
+    width: 58px;
+    height: 58px;
+    background: #FDFBF5;
+    box-shadow: 3px 3px 5px rgba(136, 137, 219, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.productImage {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    mix-blend-mode: multiply;
+    object-fit: contain;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.productName {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.chevronIcon {
+    width: 16px;
+    height: 16px;
+    color: #5AAFF1;
+}

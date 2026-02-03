@@ -1,0 +1,42 @@
+async function inspectPrecautions() {
+    console.log('Authenticating via REST API...');
+
+    // 1. Login
+    const loginResponse = await fetch('http://localhost:8055/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: 'admin@example.com',
+            password: 'password'
+        })
+    });
+
+    const loginData = await loginResponse.json();
+    const token = loginData.data?.access_token;
+
+    if (!token) {
+        console.error('Login failed');
+        return;
+    }
+
+    console.log('✅ Obtained access token.');
+
+    // 2. Get Fields Info
+    console.log('Fetching fields for general_precautions...');
+    const response = await fetch('http://localhost:8055/fields/general_precautions', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log('Fields Data:', JSON.stringify(data.data, null, 2));
+    } else {
+        const error = await response.json();
+        console.error('Fetch failed:', error);
+    }
+}
+
+inspectPrecautions();

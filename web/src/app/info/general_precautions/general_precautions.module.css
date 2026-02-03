@@ -1,0 +1,128 @@
+.main {
+    position: relative;
+    min-height: 100vh;
+    background: #FFFFFF;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 24px;
+    width: 100%;
+}
+
+.sectionLabel {
+    width: 100%;
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #908F9A;
+    align-self: stretch;
+}
+
+/* Intro Message Box */
+/* Message */
+.messageBox {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 11px 16px;
+    gap: 8px;
+
+    width: 100%;
+    /* Using 100% instead of fixed 327px for responsiveness, matching align-self: stretch */
+    /* height: 58px; */
+    /* Removed fixed height to allow text to wrap if needed, or keep min-height */
+    min-height: 58px;
+
+    /* Status/Warning/50 Background Messages */
+    background: #FEFBEC;
+    border-radius: 8px;
+
+    /* Inside auto layout */
+    flex: none;
+    /* order: 1; Removed to respect DOM order */
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.messageText {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #2F3238;
+}
+
+/* List of Precautions */
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+}
+
+.precautionItem {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* Align icon with top of text */
+    padding: 0px;
+    gap: 8px;
+    /* Gap between icon container and text */
+    width: 100%;
+}
+
+.iconContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    /* Padding removed to prevent squashing. Spacing is handled by parent gap or we can add margin if needed. */
+    width: 24px;
+    height: 24px;
+    flex: none;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 16px;
+    gap: 4px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+/* Remove border for last item? User CSS didn't explicitly say but usually yes. */
+.listContainer>.precautionItem:last-child .textContainer {
+    border-bottom: none;
+}
+
+.description {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #908F9A;
+    font-family: 'Museo Sans';
+}

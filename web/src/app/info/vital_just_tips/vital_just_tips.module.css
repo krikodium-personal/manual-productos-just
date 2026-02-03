@@ -1,0 +1,202 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #FAFAFA;
+}
+
+.content {
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* Let explicit margins handle spacing */
+}
+
+/* ... existing styles ... */
+
+.sectionLabel {
+    /* ... */
+    display: block;
+    margin-bottom: 24px;
+}
+
+.itemContainer {
+    /* ... */
+    margin-bottom: 0px;
+    /* Remove default margin */
+}
+
+/* ... */
+
+.divider {
+    height: 1px;
+    background-color: #DDDDDD;
+    margin: 16px 0 24px 36px;
+    /* Top 16px, Bottom 24px, Left 36px */
+    width: 287px;
+}
+
+.doubleCleanseSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    /* Space from previous item if no divider */
+    margin-bottom: 32px;
+}
+
+.sectionLabel {
+    font-family: 'Museo Sans';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: #908F9A;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 24px;
+}
+
+.itemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 0px;
+}
+
+/* Image indented / specific width or full based on Aroma? 
+   Aroma had .photoContainer. Let's mimic that. */
+/* Image inside standard item */
+.photoContainer {
+    width: 289px;
+    height: 155px;
+    flex-shrink: 0;
+    margin-left: 36px;
+    /* Align with text (24px icon + 12px gap) */
+}
+
+.tipImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.placeholderImage {
+    background: #F0F0F0;
+    height: 200px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.textContainerRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.iconWrapper {
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    /* Visual alignment with line-height */
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.description {
+    font-family: 'Museo Sans';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    /* Relaxed reading */
+    color: #4A4A4A;
+    margin: 0;
+    white-space: pre-line;
+    /* Handle multiline CMS text */
+}
+
+/* Bullets container */
+.subDescriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0;
+}
+
+.bulletItem {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.bulletDot {
+    width: 6px;
+    height: 6px;
+    background-color: #D18DEF;
+    border-radius: 50%;
+    margin-top: 9px;
+    /* Aligned with 24px line-height */
+    flex-shrink: 0;
+}
+
+.bulletText {
+    font-family: 'Museo Sans';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #4A4A4A;
+}
+
+/* Double Cleanse Section */
+.doubleCleanseSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+.divider {
+    height: 1px;
+    background-color: #DDDDDD;
+    margin: 16px 0 24px 36px;
+    /* Top 16px, Bottom 24px, Left 36px */
+    width: 287px;
+}
+
+.doubleCleanseTitle {
+    font-family: var(--font-museo);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #333333;
+    margin: 0;
+}
+
+.doubleCleanseItems {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Museo Sans';
+    color: #908F9A;
+}

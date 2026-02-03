@@ -1,0 +1,675 @@
+.searchTopSection {
+    width: 100%;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 24px;
+}
+
+.searchSection {
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.helperText {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.searchInputWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 8px;
+    width: 344px;
+    height: 56px;
+    background: #ECF5FE;
+    border-radius: 16px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.searchInput {
+    width: 280px;
+    height: 24px;
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #104E7E;
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.searchInput::placeholder {
+    color: #104E7E;
+    opacity: 1;
+}
+
+.searchInput:focus {
+    border-color: #5AAFF1;
+}
+
+.searchIcon {
+    position: absolute;
+    right: 16px;
+    /* Moved to right */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+    /* Allow clicks */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.searchResults {
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.searchItem {
+    padding: 12px 16px;
+    font-family: var(--font-museo);
+    font-size: 14px;
+    color: #372F2C;
+    border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
+}
+
+.searchItem:last-child {
+    border-bottom: none;
+}
+
+.searchItem:hover {
+    background-color: #F9FAFB;
+}
+
+.hintContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 0 0;
+    gap: 4px;
+    width: 344px;
+    height: 18px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    background: transparent;
+}
+
+.hintIcon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.hintText {
+    width: 324px;
+    height: 18px;
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #908F9A;
+    flex: none;
+    order: 1;
+    flex-grow: 1;
+}
+
+/* Detail View Styles */
+.detailContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.backButtonRow {
+    display: flex;
+    align-items: center;
+    padding: 16px 16px 0;
+    margin-top: 4px;
+    /* Reduced by 56px from 60px */
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.backButtonText {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #5AAFF1;
+}
+
+.productHeader {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 24px;
+    gap: 16px;
+}
+
+.productThumb {
+    width: 100%;
+    height: 160px;
+    background: #FDFBF4;
+    box-shadow: 0px 2px 6px rgba(219, 219, 244, 0.5);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 16px;
+}
+
+.productTitleSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.productTitle {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+    margin: 0;
+}
+
+/* Calculator Form Section */
+.calculatorForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px 44px;
+    border-top: 1px solid #DDDDDD;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputLabel {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: none;
+    /* Reset uppercase if used previously */
+    color: #171A22;
+    margin: 0;
+}
+
+/* Input Wrapper / Dropdown Container */
+.inputWrapper {
+    /* Auto layout properties from Figma */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    /* Padding for internal content */
+    gap: 8px;
+
+    /* Box Model */
+    position: relative;
+    width: 100%;
+    /* Adapting 343px fixed width to responsive 100% */
+    height: 56px;
+
+    /* Appearance */
+    background: #FFFFFF;
+    border: 1px solid #CED2FF;
+    border-radius: 16px;
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
+}
+
+.inputWrapperError {
+    border-color: #F06E69;
+}
+
+/* The native Select element */
+.inputField {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    /* Padding is handled by wrapper */
+
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+
+    /* Ensure text aligns with the design */
+    display: flex;
+    align-items: center;
+}
+
+.inputField:disabled {
+    color: #908F9A;
+    cursor: not-allowed;
+}
+
+.disabled {
+    background-color: #F8F8F9;
+    opacity: 0.7;
+}
+
+.priceDisplay {
+    width: 100%;
+    height: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #908F9A;
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+    margin-top: 8px;
+    /* Added spacing from dropdown */
+}
+
+/* Variant Selector in Header uses same style as input */
+/* We might need to target the select in productHeader specifically if it differs,
+   but design implies consistency. */
+
+
+.errorHint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    font-family: var(--font-museo);
+    font-size: 12px;
+    color: #F06E69;
+}
+
+.errorIcon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculateButton {
+    height: 56px;
+    background: #5AAFF1;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.calculateButton:hover {
+    background: #4A9FE1;
+}
+
+.calculateButtonText {
+    font-family: var(--font-museo);
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+/* Result Container Styles */
+.resultContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px;
+    gap: 16px;
+    /* Match padding of calculatorForm (16px horizontal) so button width aligns */
+}
+
+/* ... existing code ... */
+
+/* Full Search Results View */
+.searchResultsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 32px;
+    gap: 0;
+    background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
+    min-height: 100vh;
+}
+
+.resultsHeader {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.resultsCount {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #61646B;
+    margin-bottom: 8px;
+}
+
+/* Tabs */
+.tabsContainer {
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid #C4C5ED;
+    border-radius: 0;
+    background: transparent;
+    margin-bottom: 32px;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 4px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    /* Font styles from design */
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #6667C2;
+    white-space: nowrap;
+}
+
+.tabActive {
+    border-bottom: 3px solid #6667C2;
+    color: #373887;
+    font-weight: 700;
+}
+
+/* Results List */
+.resultsList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.resultItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 0;
+    gap: 16px;
+    border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
+}
+
+.resultImageContainer {
+    width: 64px;
+    height: 64px;
+    background: #FFFFFF;
+    box-shadow: 2px 2px 10px rgba(136, 137, 219, 0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.resultImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+    display: block;
+}
+
+.resultImageCover {
+    object-fit: cover;
+    padding: 0;
+}
+
+.resultDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.resultTitle {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #171A22;
+}
+
+.resultMetaRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.resultMetaText {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #908F9A;
+}
+
+.oneLineDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    width: 229px;
+}
+
+.resultMetaPrice {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: right;
+    color: #5AAFF1;
+    margin-left: auto;
+}
+
+.chevronRight {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #171A22;
+}
+
+.resultRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    height: 70px;
+}
+
+.resultCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.resultDivider {
+    width: 0px;
+    /* Border only */
+    height: 70px;
+    border-right: 1px solid #DDDDDD;
+}
+
+.resultRowSingle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 74px;
+}
+
+.resultIconWrapper {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultValue {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+    text-align: center;
+}
+
+.resultLabel {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #908F9A;
+    text-align: center;
+}
+
+.resultDisclaimer {
+    font-family: var(--font-museo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    color: #908F9A;
+    padding-top: 8px;
+    /* Spacing */
+}
+
+/* Skeleton Loader */
+.skeleton {
+    background-color: #E0E0E0;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite ease-in-out;
+    color: transparent !important;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.skeletonText {
+    width: 80%;
+    height: 16px;
+    background-color: #E0E0E0;
+    border-radius: 4px;
+    margin: 4px auto;
+}
+
+.skeletonValue {
+    width: 60%;
+    height: 24px;
+    background-color: #E0E0E0;
+    border-radius: 4px;
+    margin: 4px auto;
+}

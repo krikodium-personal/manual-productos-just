@@ -1,0 +1,54 @@
+:root {
+  /* Colors */
+  --color-background-start: #F5F6FF;
+  --color-background-end: #FAFAFC;
+  --color-primary: #8889DB;
+  --color-text-main: #171A22;
+  --color-text-secondary: #908F9A;
+  --color-text-action: #104E7E;
+  --color-action: #5AAFF1;
+  --color-divider: #DDDDDD;
+  --color-hover-bg: #ECF5FE;
+  --color-white: #FFFFFF;
+
+  /* Fonts */
+  /* --font-museo provided by layout.tsx */
+
+  /* Shadows */
+  --shadow-card: 10px 10px 25px rgba(164, 164, 215, 0.2);
+  --shadow-card-small: 10px 10px 25px rgba(136, 137, 219, 0.15);
+  --shadow-header: 0px 1px 17px rgba(23, 26, 34, 0.06);
+
+  /* Spacing */
+  --gap-md: 16px;
+  --padding-page: 24px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-museo);
+  background: linear-gradient(180deg, var(--color-background-start) 0%, var(--color-background-end) 100%);
+  min-height: 100vh;
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utilities for icons */
+.icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

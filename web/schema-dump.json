@@ -1,0 +1,64 @@
+{
+  "market_variants": [
+    {
+      "field": "id",
+      "type": "integer"
+    },
+    {
+      "field": "market_id",
+      "type": "integer"
+    },
+    {
+      "field": "capacity_value",
+      "type": "integer"
+    },
+    {
+      "field": "capacity_unit",
+      "type": "string"
+    },
+    {
+      "field": "code",
+      "type": "string"
+    },
+    {
+      "field": "price",
+      "type": "integer"
+    }
+  ],
+  "countries": [
+    {
+      "field": "id",
+      "type": "integer"
+    },
+    {
+      "field": "name",
+      "type": "string"
+    },
+    {
+      "field": "code",
+      "type": "string"
+    },
+    {
+      "field": "currency_symbol",
+      "type": "string"
+    }
+  ],
+  "product_markets": [
+    {
+      "field": "id",
+      "type": "integer"
+    },
+    {
+      "field": "product_id",
+      "type": "integer"
+    },
+    {
+      "field": "country_id",
+      "type": "integer"
+    },
+    {
+      "field": "variants",
+      "type": "alias"
+    }
+  ]
+}

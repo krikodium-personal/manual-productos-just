@@ -1,0 +1,155 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
+    /* Matches CSS: background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%); */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+    gap: 24px;
+    /* Matches CSS */
+}
+
+.introText {
+    /* Descarga y comparte con tus clientes... */
+    width: 100%;
+    /* display: flex; align-items: center; */
+
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+}
+
+.card {
+    /* card */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 20px;
+    width: 100%;
+    /* fit container */
+
+    background: #FFFFFF;
+    box-shadow: 10px 10px 25px rgba(136, 137, 219, 0.15);
+    border-radius: 16px;
+}
+
+.cardImageContainer {
+    /* thumb video */
+    width: 295px;
+    height: 157px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.textContainer {
+    /* textos */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 100%;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.cardTitle {
+    /* titulo */
+    width: 100%;
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+    margin: 0;
+}
+
+.cardDescription {
+    /* Nueva línea Vital Just / Description */
+    width: 100%;
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #908F9A;
+    margin: 0;
+}
+
+.downloadButton {
+    /* Button */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    /* CSS says 16px 122px? That's huge padding for a 295px width if fixed. */
+    /* width: 295px; height: 56px; */
+    width: 100%;
+    height: 56px;
+    gap: 4px;
+
+    background: transparent;
+    border: 2px solid #5AAFF1;
+    border-radius: 12px;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    /* Text styles inside button */
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #5AAFF1;
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.downloadButton:hover {
+    background-color: #F0F8FF;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #908F9A;
+    font-family: 'Museo Sans';
+}

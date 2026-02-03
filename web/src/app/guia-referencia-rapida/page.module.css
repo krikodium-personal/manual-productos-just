@@ -1,0 +1,238 @@
+.guidePage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.scrollContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
+    width: 100%;
+}
+
+.heroSection {
+    background: #FFFFFF;
+    width: 100%;
+    padding: 8px 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.listSection {
+    width: 100%;
+    padding: 24px 16px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sectionLabel {
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #171A22;
+    /* Darker as in image */
+    margin: 0;
+    padding-left: 4px;
+}
+
+/* New User Provided CSS */
+.guideImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 10px;
+    width: 100%;
+    height: 124px;
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+    margin-top: 24px;
+}
+
+.guideImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.guideIntro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 4px;
+    gap: 12px;
+    width: 100%;
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.guideTitle {
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #171A22;
+    margin: 0;
+}
+
+.guideDescription {
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #718096;
+    margin: 0;
+}
+
+.cardsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.needCard {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.letterRow {
+    padding: 16px 20px;
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #908F9A;
+    position: relative;
+}
+
+.letterRow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: #DDDDDD;
+}
+
+.needsList {
+    display: flex;
+    flex-direction: column;
+}
+
+.needItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    background: #FFFFFF;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.needItem::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: #DDDDDD;
+}
+
+.needItem:active {
+    background: #F7FAFC;
+}
+
+.lastItem::after {
+    display: none;
+}
+
+.needName {
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #171A22;
+}
+
+.chevron {
+    color: #5AAFF1;
+    width: 6.96px;
+    height: 12.66px;
+}
+
+.disclaimer {
+    padding: 0 4px;
+    font-family: var(--font-museo), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #908F9A;
+    text-align: left;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px;
+    color: #908F9A;
+    font-family: var(--font-museo), sans-serif;
+}
+
+.emptyState {
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    color: #908F9A;
+    font-size: 14px;
+    font-family: var(--font-museo), sans-serif;
+}
+
+/* Search Bar Override (inside Header) */
+.searchBar {
+    background: #EBF6FF;
+    /* Matching light blue tint */
+    border-radius: 16px;
+    height: 60px;
+    /* Slightly taller for modern feel */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 12px;
+}
+
+.searchIcon {
+    color: #5AAFF1;
+    width: 20px;
+    height: 20px;
+}
+
+.searchInput {
+    border: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-museo), sans-serif;
+    font-size: 16px;
+    color: #171A22;
+    outline: none;
+}

@@ -1,0 +1,118 @@
+.main {
+    position: relative;
+    min-height: 100vh;
+    background: #FFFFFF;
+    /* padding-top: 60px; Removed to use spacer from Header */
+}
+
+/* body */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 16px;
+    width: 100%;
+    /* max-width: 375px;  Removing max-width constraint to be responsive, or keeping it if strictly mobile design */
+}
+
+/* Section Label */
+.sectionLabel {
+    width: 100%;
+    /* Text/Eyebrow 500 */
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #908F9A;
+    align-self: stretch;
+}
+
+/* Item Container ("foto y tip") */
+.itemContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 100%;
+    /* height: 267px; Height should be auto to fit content */
+}
+
+/* Photo Container */
+.photoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 32px;
+    /* Indent 32px */
+    gap: 10px;
+    width: 100%;
+}
+
+.tipImage {
+    width: 100%;
+    height: 155px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #f0f0f0;
+}
+
+/* Text & Icon Container */
+.textContainerRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 0px 0px 0px;
+    /* Padding right removed to allow border full width */
+    gap: 8px;
+    width: 100%;
+}
+
+.iconWrapper {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textWrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 16px;
+    gap: 4px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+/* Last item should probably not have border-bottom, but user CSS didn't specify. Standard practice. */
+.itemContainer:last-child .textWrapper {
+    border-bottom: none;
+}
+
+.description {
+    /* Text/Body 500 */
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    margin: 0;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #908F9A;
+    font-family: 'Museo Sans';
+}

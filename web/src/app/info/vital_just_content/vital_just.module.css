@@ -1,0 +1,310 @@
+/* Main container */
+.main {
+    position: relative;
+    min-height: 100vh;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Header Spacer handled by component or padding-top */
+.main {
+    /* Space for fixed header */
+}
+
+/* Hero Image Area */
+.heroImageContainer {
+    position: relative;
+    width: 100%;
+    height: 264px;
+    /* Matches CSS .img height */
+    background: #EEECF7;
+    margin-bottom: 0;
+    /* Content overlaps or follows? CSS says content top 324px vs img top 60px. 324-60 = 264. So content starts exactly after image. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.heroImage {
+    /* Since we only have one dynamic image, we cover the container */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Or cover, depending on the image provided by user */
+}
+
+/* Body Content */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 16px 48px;
+    gap: 20px;
+    width: 100%;
+    max-width: 375px;
+    /* Mobile width from design, or 100%? Design says width 375px. */
+    margin: 0 auto;
+}
+
+/* Intro Section */
+.introSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+}
+
+.title {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #171A22;
+    margin: 0;
+}
+
+.description {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #908F9A;
+    margin: 0;
+}
+
+/* Calculator Button Area */
+.calculatorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 0px;
+    width: 100%;
+}
+
+.calculatorButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    /* adjusted text padding */
+    gap: 4px;
+    width: 100%;
+    height: 56px;
+    background: #5AAFF1;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.calculatorButtonText {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+/* Section Divider "LINEAS DE CUIDADO" */
+.linesHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+    height: 48px;
+}
+
+.dividerLine {
+    height: 0px;
+    border: 1px solid #C4C5ED;
+    flex-grow: 1;
+}
+
+.linesLabelContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+}
+
+.linesNumber {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    color: #6667C2;
+}
+
+.linesText {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #8889DB;
+    width: 62px;
+    /* Force wrap or width? */
+}
+
+/* Line Cards */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 100%;
+    border-radius: 16px;
+    /* Wrapper? */
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px 16px 16px;
+    gap: 12px;
+    width: 100%;
+    background: #EEECF7;
+    border-radius: 16px 16px 0px 0px;
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    width: 32px;
+    height: 32px;
+    background: #8889DB;
+    border-radius: 100px;
+    flex: none;
+}
+
+.badgeNumber {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.cardTitle {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6667C2;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.cardBody {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 16px 24px;
+    gap: 8px;
+    width: 100%;
+    background: #F9F9FC;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: #EEECF7;
+    border-radius: 0px 0px 16px 16px;
+}
+
+.listItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 100%;
+    /* min-height: 48px; */
+}
+
+.itemContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    /* Icon container gap? */
+    width: 100%;
+    min-height: 40px;
+    /* as per css */
+}
+
+.iconWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0px;
+    gap: 10px;
+    width: 14px;
+    /* Fixed width for alignment */
+    flex-shrink: 0;
+}
+
+.bullet {
+    width: 6px;
+    height: 6px;
+    background: #8889DB;
+    border-radius: 100px;
+}
+
+.itemText {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #171A22;
+    flex-grow: 1;
+}
+
+.itemDivider {
+    width: 100%;
+    height: 0px;
+    border: 1px solid #DBDBF4;
+}
+
+.listItem:last-child .itemDivider {
+    border: none;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    font-family: 'Museo Sans';
+    color: #908F9A;
+}

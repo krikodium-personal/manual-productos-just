@@ -1,0 +1,141 @@
+.main {
+    position: relative;
+    min-height: 100vh;
+    background: #FFFFFF;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 16px;
+    width: 100%;
+}
+
+.sectionLabel {
+    width: 100%;
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #908F9A;
+    align-self: stretch;
+}
+
+/* Fallback/Loading/Error */
+.loading,
+.error {
+    font-family: 'Museo Sans';
+    font-size: 14px;
+    color: #908F9A;
+    padding: 20px;
+    text-align: center;
+}
+
+/* FAQ List Container */
+.faqList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 8px;
+}
+
+/* Accordion Item */
+.accordionItem {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 16px;
+    gap: 8px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+    cursor: pointer;
+}
+
+/* Header Row (Question + Icon) */
+.accordionHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Number and Question container */
+.headerContent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.number {
+    /* width: 24px; */
+    /* Removed fixed width to allow "1." vs "10." to size naturally */
+    width: auto;
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+    flex: none;
+}
+
+.question {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #171A22;
+    flex-grow: 1;
+    margin: 0;
+}
+
+/* Icon */
+.chevron {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    transition: transform 0.3s ease;
+    color: #5AAFF1;
+    /* Matches user CSS background for vector */
+}
+
+.chevron.open {
+    transform: rotate(180deg);
+}
+
+/* Answer */
+.answerContainer {
+    width: 100%;
+    /* Hidden by default handled by React conditional rendering or height transition */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 8px;
+    /* Extra gap from header */
+}
+
+.answer {
+    font-family: 'Museo Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #908F9A;
+    margin: 0;
+}
