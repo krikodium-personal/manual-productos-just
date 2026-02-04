@@ -20,6 +20,124 @@ import {
 import { directus, getAssetUrl } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 
+
+// Custom Select Component
+interface SelectOption {
+    label: string;
+    value: string | number;
+}
+
+interface SelectGroup {
+    label: string;
+    options: SelectOption[];
+}
+
+interface CustomSelectProps {
+    value: string | number;
+    onChange: (val: string | number) => void;
+    options: (SelectOption | SelectGroup)[];
+    placeholder: string;
+    disabled?: boolean;
+}
+
+function CustomSelect({ value, onChange, options, placeholder, disabled }: CustomSelectProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    const containerRef = React.useRef<HTMLDivElement>(null);
+
+    // Close on click outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleSelect = (val: string | number) => {
+        onChange(val);
+        setIsOpen(false);
+    };
+
+    // Find label for current value
+    let currentLabel = '';
+
+    // Flatten options for search
+    const allOptions: SelectOption[] = [];
+    options.forEach(opt => {
+        if ('options' in opt) {
+            allOptions.push(...opt.options);
+        } else {
+            allOptions.push(opt);
+        }
+    });
+
+    const found = allOptions.find(o => o.value.toString() === value.toString());
+    if (found) currentLabel = found.label;
+
+    return (
+        <div
+            className={`${styles.customSelectContainer} ${disabled ? styles.disabled : ''}`}
+            ref={containerRef}
+            onClick={() => !disabled && setIsOpen(!isOpen)}
+        >
+            <div className={styles.customSelectValue}>
+                {value !== '' ? (
+                    currentLabel
+                ) : (
+                    <span className={styles.customSelectPlaceholder}>{placeholder}</span>
+                )}
+            </div>
+
+            <div style={{ pointerEvents: 'none', display: 'flex' }}>
+                <ChevronDown />
+            </div>
+
+            {isOpen && !disabled && (
+                <div className={styles.dropdownOptions}>
+                    {options.map((opt, idx) => {
+                        if ('options' in opt) {
+                            // Group
+                            return (
+                                <React.Fragment key={idx}>
+                                    <div className={styles.dropdownOptGroup}>{opt.label}</div>
+                                    {opt.options.map((subOpt, subIdx) => (
+                                        <div
+                                            key={`${idx}-${subIdx}`}
+                                            className={styles.dropdownItem}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleSelect(subOpt.value);
+                                            }}
+                                        >
+                                            <span className={styles.dropdownItemText}>{subOpt.label}</span>
+                                        </div>
+                                    ))}
+                                </React.Fragment>
+                            );
+                        } else {
+                            // Single Option
+                            return (
+                                <div
+                                    key={idx}
+                                    className={styles.dropdownItem}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleSelect(opt.value);
+                                    }}
+                                >
+                                    <span className={styles.dropdownItemText}>{opt.label}</span>
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
+            )}
+        </div>
+    );
+}
+
 // Types
 interface VariantPrice {
     price: number;
@@ -532,28 +650,18 @@ ${productUrl}`;
 
                             <div className={styles.inputGroup}>
                                 <div className={`${styles.inputWrapper} ${errors.variant ? styles.inputWrapperError : ''}`}>
-                                    <select
-                                        className={styles.inputField}
+                                    <CustomSelect
                                         value={selectedVariantIndex}
-                                        onChange={(e) => {
-                                            setSelectedVariantIndex(e.target.value);
+                                        onChange={(val) => {
+                                            setSelectedVariantIndex(val);
                                             setErrors({ ...errors, variant: false });
                                         }}
-                                    >
-                                        <option value="" disabled>Selecciona un tamaño de producto</option>
-                                        {currentVariants.length > 0 ? (
-                                            currentVariants.map((v, idx) => (
-                                                <option key={idx} value={idx}>
-                                                    {v.variant_id.capacity_value} {v.variant_id.capacity_unit}
-                                                </option>
-                                            ))
-                                        ) : (
-                                            <option disabled>No hay precios disponibles</option>
-                                        )}
-                                    </select>
-                                    <div style={{ position: 'absolute', right: '16px', pointerEvents: 'none', display: 'flex' }}>
-                                        <ChevronDown />
-                                    </div>
+                                        placeholder="Selecciona un tamaño de producto"
+                                        options={currentVariants.map((v, idx) => ({
+                                            label: `${v.variant_id.capacity_value} ${v.variant_id.capacity_unit}`,
+                                            value: idx
+                                        }))}
+                                    />
                                 </div>
                                 {errors.variant && (
                                     <div className={styles.errorHint}>
@@ -572,28 +680,18 @@ ${productUrl}`;
                         <div className={styles.inputGroup}>
                             <label className={styles.inputLabel}>Tipo de aplicación</label>
                             <div className={`${styles.inputWrapper} ${errors.type ? styles.inputWrapperError : ''}`}>
-                                <select
-                                    className={styles.inputField}
+                                <CustomSelect
                                     value={applicationType}
-                                    onChange={(e) => {
-                                        setApplicationType(e.target.value);
+                                    onChange={(val) => {
+                                        setApplicationType(val.toString());
                                         setErrors({ ...errors, type: false });
                                     }}
-                                >
-                                    <option value="" disabled>Selecciona un tipo de aplicación</option>
-                                    {usageModes.length > 0 ? (
-                                        usageModes.map((mode: UsageMode) => (
-                                            <option key={mode.id} value={mode.id}>
-                                                {mode.title}
-                                            </option>
-                                        ))
-                                    ) : (
-                                        <option disabled>No hay modos de uso disponibles</option>
-                                    )}
-                                </select>
-                                <div style={{ position: 'absolute', right: '16px', pointerEvents: 'none', display: 'flex' }}>
-                                    <ChevronDown />
-                                </div>
+                                    placeholder="Selecciona un tipo de aplicación"
+                                    options={usageModes.map((mode: UsageMode) => ({
+                                        label: mode.title,
+                                        value: mode.id
+                                    }))}
+                                />
                             </div>
                             {errors.type && (
                                 <div className={styles.errorHint}>
@@ -609,33 +707,36 @@ ${productUrl}`;
                                 ${errors.frequency ? styles.inputWrapperError : ''} 
                                 ${isFrequencyDisabled ? styles.disabled : ''}`}
                             >
-                                <select
-                                    className={styles.inputField}
+                                <CustomSelect
                                     value={usageFrequency}
-                                    onChange={(e) => {
-                                        setUsageFrequency(e.target.value);
+                                    onChange={(val) => {
+                                        setUsageFrequency(val.toString());
                                         setErrors({ ...errors, frequency: false });
                                     }}
+                                    placeholder="Selecciona frecuencia de aplicación..."
                                     disabled={isFrequencyDisabled}
-                                >
-                                    <option value="" disabled>Selecciona frecuencia de aplicación...</option>
-                                    <optgroup label="Diaria">
-                                        <option value="daily_1">1 vez al día</option>
-                                        <option value="daily_2">2 veces al día</option>
-                                        <option value="daily_3">3 veces al día</option>
-                                    </optgroup>
-                                    <optgroup label="Semanal">
-                                        <option value="weekly_1">1 vez por semana</option>
-                                        <option value="weekly_2">2 veces por semana</option>
-                                        <option value="weekly_3">3 veces por semana</option>
-                                        <option value="weekly_4">4 veces por semana</option>
-                                        <option value="weekly_5">5 veces por semana</option>
-                                        <option value="weekly_6">6 veces por semana</option>
-                                    </optgroup>
-                                </select>
-                                <div style={{ position: 'absolute', right: '16px', pointerEvents: 'none', display: 'flex' }}>
-                                    <ChevronDown />
-                                </div>
+                                    options={[
+                                        {
+                                            label: 'Diaria',
+                                            options: [
+                                                { label: '1 vez al día', value: 'daily_1' },
+                                                { label: '2 veces al día', value: 'daily_2' },
+                                                { label: '3 veces al día', value: 'daily_3' },
+                                            ]
+                                        },
+                                        {
+                                            label: 'Semanal',
+                                            options: [
+                                                { label: '1 vez por semana', value: 'weekly_1' },
+                                                { label: '2 veces por semana', value: 'weekly_2' },
+                                                { label: '3 veces por semana', value: 'weekly_3' },
+                                                { label: '4 veces por semana', value: 'weekly_4' },
+                                                { label: '5 veces por semana', value: 'weekly_5' },
+                                                { label: '6 veces por semana', value: 'weekly_6' },
+                                            ]
+                                        }
+                                    ]}
+                                />
                             </div>
                             {errors.frequency && (
                                 <div className={styles.errorHint}>

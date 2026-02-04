@@ -45,16 +45,29 @@ async function restoreImages() {
     let successCount = 0;
     let errorCount = 0;
 
+
+    const mimeTypes = {
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.avif': 'image/avif',
+        '.pdf': 'application/pdf',
+        '.svg': 'image/svg+xml',
+        '.webp': 'image/webp'
+    };
+
     for (const filename of originalFiles) {
         const filePath = path.join(UPLOADS_DIR, filename);
-        const fileId = filename.split('.')[0]; // UUID is the filename without extension
+        const fileId = filename.split('.')[0];
+        const ext = path.extname(filename).toLowerCase();
+        const type = mimeTypes[ext] || 'application/octet-stream';
 
-        // console.log(`Processing ${filename}...`);
+        // console.log(`Processing ${filename} (${type})...`);
 
         try {
             // Read file blob
             const fileBuffer = fs.readFileSync(filePath);
-            const blob = new Blob([fileBuffer]);
+            const blob = new Blob([fileBuffer], { type });
 
             const formData = new FormData();
             formData.append('file', blob, filename);
