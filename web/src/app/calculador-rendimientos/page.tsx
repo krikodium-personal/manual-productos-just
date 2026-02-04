@@ -343,6 +343,8 @@ function CalculatorContent() {
         setUsageFrequency('');
         setErrors({ variant: false, type: false, frequency: false });
         setCalculationResult(null);
+        // Update URL
+        router.push(`/calculador-rendimientos?product=${product.slug || product.id}`, { scroll: false });
     };
 
     const handleBack = () => {
@@ -350,6 +352,8 @@ function CalculatorContent() {
         setErrors({ variant: false, type: false, frequency: false });
         setCalculationResult(null);
         setIsCalculating(false);
+        // Clear URL
+        router.push('/calculador-rendimientos', { scroll: false });
     };
 
     // Calculation Logic
