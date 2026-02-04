@@ -47,7 +47,7 @@ export default function AromatherapyTipsPage() {
         <div className={styles.main}>
             {/* Header with Title "Tips Aroma" matching the collection rename */}
             <Header
-                title="Tips Aroma"
+                title="Tips de demostración"
                 onBack={() => router.back()}
                 showSearch={false}
                 showShare={false}
