@@ -21,7 +21,7 @@
     padding: 0px 24px;
     gap: 8px;
     width: 100%;
-    max-width: 375px;
+    max-width: 100%;
 }
 
 .introEyebrow {
@@ -70,8 +70,7 @@
     padding: 24px;
     gap: 16px;
     width: 100%;
-    max-width: 327px;
-    /* 375px - 48px padding = 327px */
+    /* max-width: 327px; Removed to allow fluid width */
     background: #FFFFFF;
     box-shadow: 10px 10px 25px rgba(164, 164, 215, 0.2);
     border-radius: 16px;
