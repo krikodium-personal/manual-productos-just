@@ -17,7 +17,7 @@
     align-items: flex-start;
     padding: 0px;
     gap: 0px;
-    width: 344px;
+    width: 100%;
     /* height: auto; let content determine height */
     flex: none;
     order: 0;
@@ -32,7 +32,7 @@
     padding: 8px 16px;
     gap: 8px;
 
-    width: 344px;
+    width: 100%;
     height: 56px;
 
     background: #ECF5FE;
@@ -44,7 +44,7 @@
 }
 
 .searchInput {
-    width: 280px;
+    width: 100%;
     height: 24px;
     font-family: 'Museo Sans';
     font-style: normal;
@@ -93,7 +93,7 @@
     align-items: flex-start;
     padding: 0px;
     gap: 4px;
-    width: 344px;
+    width: 100%;
     height: 18px;
     flex: none;
     order: 1;
@@ -109,7 +109,7 @@
 }
 
 .hintText {
-    width: 324px;
+    width: 100%;
     height: 18px;
     font-family: 'Museo Sans';
     font-style: normal;
