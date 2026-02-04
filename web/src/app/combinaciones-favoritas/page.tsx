@@ -18,7 +18,7 @@ interface Combination {
     id: number;
     name: string;
     description: string;
-    image: string;
+    image: string | { id: string; modified_on?: string };
     recipe: string;
     products: {
         products_id: Product;
@@ -35,7 +35,7 @@ export default function CombinacionesFavoritasPage() {
         async function fetchCombinations() {
             try {
                 const result = await directus.request(readItems('favorite_combinations', {
-                    fields: ['*', 'products.products_id.*']
+                    fields: ['*', 'image.id', 'image.modified_on', 'products.products_id.*']
                 }));
                 // @ts-ignore
                 setCombinations(result);
@@ -106,7 +106,16 @@ export default function CombinacionesFavoritasPage() {
                                     <div className={styles.emojiWrapper}>
                                         {comb.image ? (
                                             <img
-                                                src={getAssetUrl(comb.image, { width: 220, height: 220, fit: 'contain', quality: 90 })}
+                                                src={getAssetUrl(
+                                                    typeof comb.image === 'string' ? comb.image : comb.image?.id,
+                                                    {
+                                                        width: 220,
+                                                        height: 220,
+                                                        fit: 'contain',
+                                                        quality: 90,
+                                                        cacheBuster: typeof comb.image === 'object' ? comb.image?.modified_on : undefined
+                                                    }
+                                                )}
                                                 alt={comb.name}
                                                 className={styles.emojiImage}
                                             />

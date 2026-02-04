@@ -16,6 +16,7 @@ export interface ThumbnailOptions {
     quality?: number;
     fit?: 'cover' | 'contain' | 'inside' | 'outside';
     format?: 'jpg' | 'png' | 'webp' | 'avif';
+    cacheBuster?: string | number;
 }
 
 export const getAssetUrl = (id: string, options?: ThumbnailOptions) => {
@@ -39,6 +40,7 @@ export const getAssetUrl = (id: string, options?: ThumbnailOptions) => {
         if (options.quality) params.set('quality', options.quality.toString());
         if (options.fit) params.set('fit', options.fit);
         if (options.format) params.set('format', options.format);
+        if (options.cacheBuster) params.set('t', options.cacheBuster.toString());
 
         const queryString = params.toString();
         if (queryString) {
