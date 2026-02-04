@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SearchIcon, SearchClearIcon, InfoIcon } from './Icons';
 import { getAssetUrl } from '@/lib/directus';
+import { useCountry } from '@/context/CountryContext';
 import styles from './SearchBar.module.css';
 
 interface SearchResult {
@@ -23,6 +24,7 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ type, placeholder = 'Buscar...', className }: SearchBarProps) {
+    const { selectedCountry } = useCountry();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResult[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +52,8 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
         // Set new timer
         debounceTimer.current = setTimeout(async () => {
             try {
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=${type}`);
+                const countryParam = selectedCountry ? `&country=${selectedCountry.id}` : '';
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=${type}${countryParam}`);
                 const data = await response.json();
                 setResults(data.results || []);
                 setShowDropdown(true);
@@ -67,7 +70,7 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
                 clearTimeout(debounceTimer.current);
             }
         };
-    }, [query, type]);
+    }, [query, type, selectedCountry]);
 
     // Click outside to close
     useEffect(() => {

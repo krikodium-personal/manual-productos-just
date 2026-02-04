@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { readItem, readItems } from '@directus/sdk';
 import { directus, getAssetUrl } from '@/lib/directus';
+import { useCountry } from '@/context/CountryContext';
 import Header from '@/components/Header';
 import { ChevronRight } from '@/components/Icons';
 import styles from './category.module.css';
@@ -39,24 +40,25 @@ function CategoryContent() {
     const params = useParams();
     const router = useRouter();
     const searchParams = useSearchParams();
-    const id = params?.id as string;
+    const { id } = params as { id: string };
     const expandedId = searchParams?.get('expanded');
+    const { selectedCountry } = useCountry();
 
     const [category, setCategory] = useState<Category | null>(null);
     const [loading, setLoading] = useState(true);
     const [openSubcategories, setOpenSubcategories] = useState<string[]>([]);
 
     useEffect(() => {
-        if (!id) return;
+        if (!id || !selectedCountry) return;
 
         async function fetchData() {
             try {
-                // 1. Fetch Category Basic Info to check Parent
+                // 1. Fetch Category Basic Info
                 const categoryResult = await directus.request(readItem('categories', id, {
                     fields: [
                         'id',
                         'name',
-                        'description', // Fetch description
+                        'description',
                         'parent',
                         'children.id', 'children.name', 'children.sort'
                     ],
@@ -76,21 +78,21 @@ function CategoryContent() {
                     if (String(categoryResult.id) === '7') {
                         router.replace(`/category/${categoryResult.parent}/vehiculares`);
                     } else {
-                        console.log(`Subcategory detected (Parent: ${categoryResult.parent}). Redirecting...`);
                         router.replace(`/category/${categoryResult.parent}?expanded=${id}`);
                     }
-                    return; // Stop execution here
+                    return;
                 }
 
-                // 2. Fetch Products
+                // 2. Fetch Products filtered by category AND country
                 const childrenIds = categoryResult.children ? categoryResult.children.map((c: any) => c.id) : [];
                 const allIds = [id, ...childrenIds];
 
                 const productsResult = await directus.request(readItems('products', {
                     filter: {
-                        category: {
-                            _in: allIds
-                        }
+                        _and: [
+                            { category: { _in: allIds } },
+                            { markets: { country_id: { _eq: selectedCountry!.id } } }
+                        ]
                     },
                     fields: ['id', 'name', 'photo', 'category', 'product_code', 'slug']
                 }));

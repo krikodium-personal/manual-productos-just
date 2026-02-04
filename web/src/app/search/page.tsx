@@ -75,10 +75,21 @@ function SearchContent() {
     }, [searchTerm, pathname, router, searchParams]);
 
     // Fetch Products
+    const { selectedCountry } = useCountry();
+
     useEffect(() => {
+        if (!selectedCountry) return;
+
         async function fetchProducts() {
             try {
                 const results = await directus.request(readItems('products', {
+                    filter: {
+                        markets: {
+                            country_id: {
+                                _eq: selectedCountry!.id
+                            }
+                        }
+                    },
                     limit: -1,
                     fields: [
                         'id',

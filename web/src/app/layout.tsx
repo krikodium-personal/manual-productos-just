@@ -30,6 +30,8 @@ export const viewport = {
   maximumScale: 1,
 };
 
+import { CountryProvider } from "@/context/CountryContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,7 +40,9 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${museoSans.className} ${museoSans.variable}`}>
-        {children}
+        <CountryProvider>
+          {children}
+        </CountryProvider>
       </body>
     </html>
   );

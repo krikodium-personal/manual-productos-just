@@ -19,6 +19,7 @@ import {
 } from '@/components/Icons';
 import { directus, getAssetUrl } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
+import { useCountry } from '@/context/CountryContext';
 
 
 // Custom Select Component
@@ -172,6 +173,7 @@ interface Product {
 function CalculatorContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { selectedCountry } = useCountry();
 
     // Data
     const [products, setProducts] = useState<Product[]>([]);
@@ -205,11 +207,16 @@ function CalculatorContent() {
 
     // Fetch Products
     useEffect(() => {
+        if (!selectedCountry) return;
+
         async function fetchProducts() {
             try {
                 const res = await directus.request(readItems('products', {
                     filter: {
-                        show_calculator: { _neq: false }
+                        _and: [
+                            { show_calculator: { _neq: false } },
+                            { markets: { country_id: { _eq: selectedCountry!.id } } }
+                        ]
                     },
                     fields: [
                         'id',
@@ -293,8 +300,8 @@ function CalculatorContent() {
 
     // Helper to get variants
     const getVariants = (product: Product) => {
-        if (!product.markets) return [];
-        const market = product.markets[0]; // TODO: Filter by current user country
+        if (!product.markets || !selectedCountry) return [];
+        const market = product.markets.find((m: any) => m.country_id == selectedCountry.id);
         if (!market || !market.prices) return [];
         return market.prices;
     };

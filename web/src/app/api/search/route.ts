@@ -6,8 +6,9 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q');
     const type = searchParams.get('type') || 'all'; // 'products', 'needs', or 'all'
+    const country = searchParams.get('country');
 
-    console.log('[Search API] Query:', query, 'Type:', type);
+    console.log('[Search API] Query:', query, 'Type:', type, 'Country:', country);
 
     if (!query || query.trim().length < 2) {
         return NextResponse.json({ results: [] });
@@ -19,16 +20,25 @@ export async function GET(request: NextRequest) {
         // Search products if type is 'products' or 'all'
         if (type === 'products' || type === 'all') {
             try {
+                const productFilter: any = {
+                    _or: [
+                        { name: { _icontains: query } },
+                        { description_short: { _icontains: query } },
+                        { description_long: { _icontains: query } },
+                        { product_code: { _icontains: query } }
+                    ]
+                };
+
+                // Add country filter if provided
+                if (country) {
+                    productFilter._and = [
+                        { markets: { country_id: { _eq: country } } }
+                    ];
+                }
+
                 console.log('[Search API] Searching products with query:', query);
                 const products = await directus.request(readItems('products', {
-                    filter: {
-                        _or: [
-                            { name: { _icontains: query } },
-                            { description_short: { _icontains: query } },
-                            { description_long: { _icontains: query } },
-                            { product_code: { _icontains: query } }
-                        ]
-                    },
+                    filter: productFilter,
                     fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code'],
                     limit: 5,
                     sort: ['name']
