@@ -22,11 +22,14 @@ export async function GET(request: NextRequest) {
                 console.log('[Search API] Searching products with query:', query);
                 const products = await directus.request(readItems('products', {
                     filter: {
-                        name: {
-                            _icontains: query
-                        }
+                        _or: [
+                            { name: { _icontains: query } },
+                            { description_short: { _icontains: query } },
+                            { description_long: { _icontains: query } },
+                            { product_code: { _icontains: query } }
+                        ]
                     },
-                    fields: ['id', 'name', 'slug', 'photo'],
+                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code'],
                     limit: 5,
                     sort: ['name']
                 }));
