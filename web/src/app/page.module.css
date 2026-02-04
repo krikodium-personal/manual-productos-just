@@ -288,8 +288,9 @@
   padding: 16px;
   gap: 16px;
 
-  width: 327px;
-  height: 104px;
+  width: 100%;
+  height: auto;
+  min-height: 104px;
 
   /* Neutrals/50 Background */
   background: #FFFFFF;
@@ -315,8 +316,9 @@
   padding: 16px;
   gap: 16px;
 
-  width: 327px;
-  height: 104px;
+  width: 100%;
+  height: auto;
+  min-height: 104px;
 
   /* Neutrals/50 Background */
   background: #FFFFFF;
