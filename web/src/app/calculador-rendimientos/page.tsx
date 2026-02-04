@@ -206,6 +206,9 @@ function CalculatorContent() {
         async function fetchProducts() {
             try {
                 const res = await directus.request(readItems('products', {
+                    filter: {
+                        show_calculator: { _neq: false }
+                    },
                     fields: [
                         'id',
                         'name',
