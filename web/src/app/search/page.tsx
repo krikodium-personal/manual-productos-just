@@ -33,7 +33,6 @@ interface Product {
     id: number;
     name: string;
     slug: string;
-    description?: string;
     description_short?: string;
     description_long?: string;
     product_code?: string;
@@ -85,9 +84,7 @@ function SearchContent() {
                         'id',
                         'name',
                         'slug',
-                        'photo',
                         'product_code',
-                        'description',
                         'description_short',
                         'description_long',
                         'markets.prices.price',
@@ -127,11 +124,10 @@ function SearchContent() {
         return products.filter(p => {
             const nameMatch = p.name ? p.name.toLowerCase().includes(term) : false;
             const descShortMatch = p.description_short ? p.description_short.toLowerCase().includes(term) : false;
-            const descMatch = p.description ? p.description.toLowerCase().includes(term) : false;
             const descLongMatch = p.description_long ? p.description_long.toLowerCase().includes(term) : false;
             const codeMatch = p.product_code ? p.product_code.toLowerCase().includes(term) : false;
 
-            return nameMatch || descShortMatch || descMatch || descLongMatch || codeMatch;
+            return nameMatch || descShortMatch || descLongMatch || codeMatch;
         });
     }, [searchTerm, products]);
 
@@ -279,7 +275,7 @@ function SearchContent() {
                                     <div className={styles.resultTitle}>{item.name}</div>
                                     <div className={styles.resultMetaRow}>
                                         <span className={`${styles.resultMetaText} ${activeTab === 'needs' ? styles.oneLineDescription : ''}`}>
-                                            {activeTab === 'products' ? (item.product_code ? `ID: ${item.product_code}` : 'Producto Just') :
+                                            {activeTab === 'products' ? (item.product_code ? `ID: ${item.product_code}` : (item.description_short || 'Producto Just')) :
                                                 activeTab === 'needs' ? (item.short_description || 'Bienestar y Salud') :
                                                     'Ingrediente Natural'}
                                         </span>
