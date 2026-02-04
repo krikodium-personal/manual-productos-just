@@ -180,7 +180,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 16px;
 }
 
 .productTitleSection {
@@ -652,7 +651,8 @@
 }
 
 .customSelectPlaceholder {
-    color: #171A22; /* As requested: Neutrals/900 */
+    color: #171A22;
+    /* As requested: Neutrals/900 */
 }
 
 /* _Assets-OptionList */
@@ -664,14 +664,18 @@
     isolation: isolate;
 
     position: absolute;
-    width: 100%; /* Adapting 343px to container width */
+    width: 100%;
+    /* Adapting 343px to container width */
     left: 0;
-    top: 100%; /* Below input */
-    margin-top: 8px; /* Slight gap */
+    top: 100%;
+    /* Below input */
+    margin-top: 8px;
+    /* Slight gap */
     max-height: 200px;
     overflow-y: auto;
 
-    background: #FFFFFF; /* Ensure background */
+    background: #FFFFFF;
+    /* Ensure background */
     /* Shadows/Cards */
     filter: drop-shadow(10px 10px 25px rgba(136, 137, 219, 0.15));
     border-radius: 16px;

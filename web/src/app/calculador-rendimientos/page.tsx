@@ -639,7 +639,7 @@ ${productUrl}`;
                         <div className={styles.productThumb}>
                             {selectedProduct.photo ? (
                                 <img
-                                    src={getAssetUrl(selectedProduct.photo, { width: 600, height: 400, fit: 'contain', quality: 85 })}
+                                    src={getAssetUrl(selectedProduct.photo, { height: 480, fit: 'inside', quality: 90 })}
                                     alt={selectedProduct.name}
                                     className={styles.productImage}
                                 />
