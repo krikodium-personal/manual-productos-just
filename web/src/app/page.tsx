@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import ProductFamily from '@/components/ProductFamily';
 import MoreInfo from '@/components/MoreInfo';
