@@ -18,7 +18,7 @@ interface Category {
 export default function ProductFamily() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
-    const [openId, setOpenId] = useState<number | null>(null);
+    const [openIds, setOpenIds] = useState<number[]>([]);
 
     useEffect(() => {
         async function fetchCategories() {
@@ -68,7 +68,7 @@ export default function ProductFamily() {
 
                 // Auto-open the first one if it exists
                 if (roots.length > 0) {
-                    setOpenId(roots[0].id);
+                    setOpenIds([roots[0].id]);
                 }
             } catch (error) {
                 console.error("Failed to fetch categories:", error);
@@ -81,7 +81,9 @@ export default function ProductFamily() {
     }, []);
 
     const toggle = (id: number) => {
-        setOpenId(prev => prev === id ? null : id);
+        setOpenIds(prev =>
+            prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+        );
     };
 
     if (loading) return <div className={styles.cardWrapper}>Cargando...</div>;
@@ -89,7 +91,7 @@ export default function ProductFamily() {
     return (
         <div className={styles.cardWrapper}>
             {categories.map((cat, index) => {
-                const isOpen = openId === cat.id;
+                const isOpen = openIds.includes(cat.id);
                 const isLast = index === categories.length - 1;
                 const hasChildren = cat.children && cat.children.length > 0;
 
