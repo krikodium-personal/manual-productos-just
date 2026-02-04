@@ -321,7 +321,7 @@ function CalculatorContent() {
         if (product.show_custom_usage_modes !== false && (product as any).custom_usage_modes) {
             const customModes = (product as any).custom_usage_modes.map((m: any) => ({
                 id: `custom_${m.id}`,
-                title: m.title || m.description,
+                title: m.application_amount?.name || m.title || m.description,
                 application_amount: m.application_amount
             }));
             modes = [...modes, ...customModes];
