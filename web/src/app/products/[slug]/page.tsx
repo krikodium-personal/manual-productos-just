@@ -291,6 +291,7 @@ ${externalUrl}`;
                 showFlyer={!!product.flyer}
                 onDownloadDatasheet={handleDownloadDatasheet}
                 onDownloadFlyer={handleDownloadFlyer}
+                showCalculator={product.show_calculator !== false}
             />
             <div className={styles.content}>
 

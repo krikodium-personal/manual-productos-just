@@ -18,6 +18,7 @@ interface HeaderProps {
     showFlyer?: boolean;
     onDownloadDatasheet?: () => void;
     onDownloadFlyer?: () => void;
+    showCalculator?: boolean;
 }
 
 const Header = ({
@@ -32,7 +33,8 @@ const Header = ({
     showDatasheet = false,
     showFlyer = false,
     onDownloadDatasheet,
-    onDownloadFlyer
+    onDownloadFlyer,
+    showCalculator = true
 }: HeaderProps) => {
     const [isVisible, setIsVisible] = useState(true);
     const [isKebabOpen, setIsKebabOpen] = useState(false);
@@ -150,16 +152,18 @@ const Header = ({
                                 <ShareIcon />
                                 <span style={{ fontSize: '14px', color: '#171A22', fontWeight: 500 }}>Compartir producto</span>
                             </div>
-                            <div
-                                onClick={() => {
-                                    setIsKebabOpen(false);
-                                    if (onCalculate) onCalculate();
-                                }}
-                                style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '100%', height: '56px', cursor: 'pointer', padding: '0 16px', borderBottom: (showFlyer || showDatasheet) ? '1px solid #F0F0F0' : 'none', boxSizing: 'border-box' }}
-                            >
-                                <CalculateIcon />
-                                <span style={{ fontSize: '14px', color: '#171A22', fontWeight: 500 }}>Calcular rendimiento</span>
-                            </div>
+                            {showCalculator && (
+                                <div
+                                    onClick={() => {
+                                        setIsKebabOpen(false);
+                                        if (onCalculate) onCalculate();
+                                    }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '100%', height: '56px', cursor: 'pointer', padding: '0 16px', borderBottom: (showFlyer || showDatasheet) ? '1px solid #F0F0F0' : 'none', boxSizing: 'border-box' }}
+                                >
+                                    <CalculateIcon />
+                                    <span style={{ fontSize: '14px', color: '#171A22', fontWeight: 500 }}>Calcular rendimiento</span>
+                                </div>
+                            )}
 
                             {showFlyer && (
                                 <div
