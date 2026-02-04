@@ -13,11 +13,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px 0px 48px;
+    padding: 8px 16px 48px;
     gap: 8px;
     width: 100%;
-    max-width: 376px;
-    margin: 6px auto 0;
+    max-width: 100%;
+    margin: 6px 0 0;
 }
 
 /* Page Intro Section */
@@ -25,7 +25,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0px 16px;
+    padding: 0px;
     gap: 16px;
     width: 100%;
     margin-bottom: 24px;
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 16px;
+    padding: 0;
     gap: 16px;
     width: 100%;
 }
