@@ -104,7 +104,7 @@ export default function IngredientDetailPage({ params }: { params: Promise<{ slu
             <div className={styles.heroImageContainer}>
                 {ingredient.photo && (
                     <img
-                        src={getAssetUrl(ingredient.photo)}
+                        src={getAssetUrl(ingredient.photo, { height: 600, quality: 85, fit: 'contain' })}
                         alt={ingredient.name}
                         className={styles.heroImage}
                     />
@@ -165,7 +165,7 @@ export default function IngredientDetailPage({ params }: { params: Promise<{ slu
                                 <div className={styles.productImageWrapper}>
                                     {product.photo && (
                                         <img
-                                            src={getAssetUrl(product.photo)}
+                                            src={getAssetUrl(product.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })}
                                             alt={product.name}
                                             className={styles.productImage}
                                         />

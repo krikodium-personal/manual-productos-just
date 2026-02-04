@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SearchIcon, SearchClearIcon, InfoIcon } from './Icons';
+import { getAssetUrl } from '@/lib/directus';
 import styles from './SearchBar.module.css';
 
 interface SearchResult {
@@ -191,7 +192,7 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
                                     >
                                         {result.photo && result.type === 'product' && (
                                             <img
-                                                src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${result.photo}`}
+                                                src={getAssetUrl(result.photo, { width: 80, height: 80, fit: 'cover', quality: 80 })}
                                                 alt={result.name}
                                                 className={styles.resultImage}
                                             />

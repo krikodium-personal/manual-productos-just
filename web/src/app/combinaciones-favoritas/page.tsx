@@ -106,7 +106,7 @@ export default function CombinacionesFavoritasPage() {
                                     <div className={styles.emojiWrapper}>
                                         {comb.image ? (
                                             <img
-                                                src={getAssetUrl(comb.image)}
+                                                src={getAssetUrl(comb.image, { width: 220, height: 220, fit: 'contain', quality: 90 })}
                                                 alt={comb.name}
                                                 className={styles.emojiImage}
                                             />
@@ -141,7 +141,7 @@ export default function CombinacionesFavoritasPage() {
                                                 <div className={styles.productImageWrapper}>
                                                     {item.products_id?.photo ? (
                                                         <img
-                                                            src={getAssetUrl(item.products_id.photo)}
+                                                            src={getAssetUrl(item.products_id.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })}
                                                             alt={item.products_id.name}
                                                             className={styles.productImage}
                                                         />

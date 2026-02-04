@@ -205,7 +205,7 @@ function CategoryContent() {
                                     <div className={styles.productImageContainer}>
                                         {product.photo ? (
                                             <img
-                                                src={getAssetUrl(product.photo)}
+                                                src={getAssetUrl(product.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })}
                                                 alt={product.name}
                                                 className={styles.productImage}
                                             />
@@ -267,7 +267,7 @@ function CategoryContent() {
                                                         <div className={styles.productImageContainer}>
                                                             {product.photo ? (
                                                                 <img
-                                                                    src={getAssetUrl(product.photo)}
+                                                                    src={getAssetUrl(product.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })}
                                                                     alt={product.name}
                                                                     className={styles.productImage}
                                                                 />

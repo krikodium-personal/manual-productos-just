@@ -545,7 +545,7 @@ ${productUrl}`;
                             }}>
                                 <div className={styles.resultImageContainer}>
                                     {item.photo ? (
-                                        <img src={getAssetUrl(item.photo)} alt={item.name} className={styles.resultImage} />
+                                        <img src={getAssetUrl(item.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })} alt={item.name} className={styles.resultImage} />
                                     ) : (
                                         <div style={{ color: '#908F9A', fontSize: '10px' }}>IMG</div>
                                     )}
@@ -636,7 +636,7 @@ ${productUrl}`;
                         <div className={styles.productThumb}>
                             {selectedProduct.photo ? (
                                 <img
-                                    src={getAssetUrl(selectedProduct.photo)}
+                                    src={getAssetUrl(selectedProduct.photo, { width: 600, height: 400, fit: 'contain', quality: 85 })}
                                     alt={selectedProduct.name}
                                     className={styles.productImage}
                                 />

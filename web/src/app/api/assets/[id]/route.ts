@@ -13,7 +13,11 @@ export async function GET(
 
     // Ensure no trailing slash
     const directusUrl = (process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055').replace(/\/$/, "");
-    const assetUrl = `${directusUrl}/assets/${id}`;
+
+    // Capture query params from the incoming request (NextRequest)
+    const searchParams = request.nextUrl.search; // includes '?'
+
+    const assetUrl = `${directusUrl}/assets/${id}${searchParams}`;
 
     // console.log(`[Proxy] Fetching asset: ${assetUrl}`);
 

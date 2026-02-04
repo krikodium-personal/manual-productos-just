@@ -129,7 +129,7 @@ export default function VehicularesPage() {
                                     <div className={styles.productImageWrapper}>
                                         {product.photo ? (
                                             <img
-                                                src={getAssetUrl(product.photo)}
+                                                src={getAssetUrl(product.photo, { width: 120, height: 120, fit: 'cover', quality: 80 })}
                                                 alt={product.name}
                                                 className={styles.productImage}
                                             />
