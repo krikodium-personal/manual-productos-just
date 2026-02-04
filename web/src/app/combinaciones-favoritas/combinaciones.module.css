@@ -68,9 +68,7 @@
     align-items: flex-start;
     padding: 16px;
     gap: 0;
-    /* Removed gap to prevent extra spacing when collapsed */
     width: 100%;
-    /* height: 140px; removed fixed height */
     min-height: 140px;
     height: auto;
     background: #FFFFFF;
@@ -183,6 +181,9 @@
     line-height: 20px;
     color: #171A22;
     margin-top: 4px;
+    margin-bottom: 0;
+    padding-bottom: 2px;
+    /* Slight visual buffer for descenders */
 }
 
 .chevronWrapper {
