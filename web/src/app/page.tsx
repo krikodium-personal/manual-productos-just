@@ -6,6 +6,7 @@ import styles from './page.module.css';
 
 // Componente Header (Simplificado para esta vista)
 import Header from '@/components/Header';
+import { APP_VERSION } from '@/constants/version';
 
 export default function Home() {
   return (
@@ -52,6 +53,18 @@ export default function Home() {
           <h2 className={styles.sectionTitle}>Para saber más</h2>
           <MoreInfo />
         </section>
+
+        <div style={{
+          padding: '40px 16px 20px',
+          textAlign: 'center',
+          color: '#C7C7CC',
+          fontSize: '11px',
+          fontFamily: 'var(--font-museo)',
+          textTransform: 'uppercase',
+          letterSpacing: '1px'
+        }}>
+          Versión {APP_VERSION}
+        </div>
       </div>
     </main>
   );

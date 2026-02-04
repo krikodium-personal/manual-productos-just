@@ -3,6 +3,7 @@ import { SearchIcon, InfoIcon, ArrowBack, KebabIcon, ShareIcon, CalculateIcon, D
 import SearchBar from './SearchBar';
 import styles from '../app/page.module.css';
 import { useState, useEffect, useRef } from 'react';
+import { APP_VERSION } from '@/constants/version';
 
 interface HeaderProps {
     title?: string;
@@ -185,6 +186,18 @@ const Header = ({
                                     <span style={{ fontSize: '14px', color: '#171A22', fontWeight: 500 }}>Descargar ficha en PDF</span>
                                 </div>
                             )}
+                            <div style={{
+                                padding: '12px 16px',
+                                textAlign: 'center',
+                                color: '#908F9A',
+                                fontSize: '12px',
+                                borderTop: '1px solid #F0F0F0',
+                                backgroundColor: '#F9FAFB',
+                                borderRadius: '0 0 16px 16px',
+                                fontFamily: 'var(--font-museo)'
+                            }}>
+                                Versión {APP_VERSION}
+                            </div>
                         </div>
                     </>
                 )}
