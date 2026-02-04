@@ -36,9 +36,20 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
 
     // Debounced search
     useEffect(() => {
-        if (query.trim().length < 2) {
+        const trimmedQuery = query.trim();
+
+        if (trimmedQuery.length === 0) {
             setResults([]);
             setShowDropdown(false);
+            return;
+        }
+
+        // Show dropdown for any input length
+        setShowDropdown(true);
+
+        if (trimmedQuery.length < 3) {
+            setResults([]);
+            setIsLoading(false);
             return;
         }
 
@@ -53,10 +64,9 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
         debounceTimer.current = setTimeout(async () => {
             try {
                 const countryParam = selectedCountry ? `&country=${selectedCountry.id}` : '';
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=${type}${countryParam}`);
+                const response = await fetch(`/api/search?q=${encodeURIComponent(trimmedQuery)}&type=${type}${countryParam}`);
                 const data = await response.json();
                 setResults(data.results || []);
-                setShowDropdown(true);
                 setIsLoading(false);
             } catch (error) {
                 console.error('Search error:', error);
@@ -98,7 +108,7 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
 
     // Keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (!showDropdown && e.key === 'Enter' && query.length >= 2) {
+        if (!showDropdown && e.key === 'Enter' && query.length >= 3) {
             e.preventDefault();
             router.push(`/search?q=${encodeURIComponent(query)}`);
             return;
@@ -122,7 +132,7 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
                     const url = getResultUrl(result);
                     // Use router push for client side nav
                     router.push(url);
-                } else {
+                } else if (query.length >= 3) {
                     router.push(`/search?q=${encodeURIComponent(query)}`);
                     setShowDropdown(false);
                 }
@@ -179,7 +189,11 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
 
             {showDropdown && (
                 <div className={styles.dropdown}>
-                    {isLoading ? (
+                    {query.trim().length > 0 && query.trim().length < 3 ? (
+                        <div className={styles.loadingState}>
+                            Escriba al menos 3 caracteres para iniciar la búsqueda
+                        </div>
+                    ) : isLoading ? (
                         <div className={styles.loadingState}>Buscando...</div>
                     ) : results.length > 0 ? (
                         <ul className={styles.resultsList}>
