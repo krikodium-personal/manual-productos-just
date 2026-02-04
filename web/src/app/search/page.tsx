@@ -12,6 +12,7 @@ import {
 } from '@/components/Icons';
 import { directus, getAssetUrl } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
+import { useCountry } from '@/context/CountryContext';
 
 // Types
 interface VariantPrice {

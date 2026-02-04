@@ -6,6 +6,7 @@ import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 import { useCountry } from '@/context/CountryContext';
 import { ChevronDown } from '@/components/Icons';
+import { APP_VERSION } from '@/constants/version';
 import styles from './select-country.module.css';
 
 interface Country {
@@ -94,6 +95,18 @@ export default function SelectCountryPage() {
                 >
                     Continuar
                 </button>
+
+                <div style={{
+                    marginTop: '40px',
+                    textAlign: 'center',
+                    color: '#C7C7CC',
+                    fontSize: '11px',
+                    fontFamily: 'var(--font-museo)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                }}>
+                    Versión {APP_VERSION}
+                </div>
             </div>
         </main>
     );
