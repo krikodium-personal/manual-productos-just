@@ -34,6 +34,7 @@ interface Product {
     name: string;
     slug: string;
     description?: string;
+    description_short?: string;
     description_long?: string;
     product_code?: string;
     markets: ProductMarket[];
@@ -87,6 +88,7 @@ function SearchContent() {
                         'photo',
                         'product_code',
                         'description',
+                        'description_short',
                         'description_long',
                         'markets.prices.price',
                         'markets.prices.variant_id.capacity_value',
@@ -119,14 +121,17 @@ function SearchContent() {
 
     // Derived State
     const filteredProducts = useMemo(() => {
+        if (!searchTerm || searchTerm.length < 2) return [];
+        const term = searchTerm.toLowerCase();
+
         return products.filter(p => {
-            const term = searchTerm.toLowerCase();
-            return (
-                p.name.toLowerCase().includes(term) ||
-                (p.description && p.description.toLowerCase().includes(term)) ||
-                (p.description_long && p.description_long.toLowerCase().includes(term)) ||
-                (p.product_code && p.product_code.toLowerCase().includes(term))
-            );
+            const nameMatch = p.name ? p.name.toLowerCase().includes(term) : false;
+            const descShortMatch = p.description_short ? p.description_short.toLowerCase().includes(term) : false;
+            const descMatch = p.description ? p.description.toLowerCase().includes(term) : false;
+            const descLongMatch = p.description_long ? p.description_long.toLowerCase().includes(term) : false;
+            const codeMatch = p.product_code ? p.product_code.toLowerCase().includes(term) : false;
+
+            return nameMatch || descShortMatch || descMatch || descLongMatch || codeMatch;
         });
     }, [searchTerm, products]);
 
