@@ -271,11 +271,16 @@ function CalculatorContent() {
         }
     }, [products, productParam]);
 
+    // Accent removal helper
+    const normalize = (text: string) =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
     // Filter Logic
     // Derived State for Search
     const filteredProducts = useMemo(() => {
         if (!searchTerm) return [];
-        return products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        const normalizedTerm = normalize(searchTerm);
+        return products.filter(p => normalize(p.name).includes(normalizedTerm));
     }, [searchTerm, products]);
 
 

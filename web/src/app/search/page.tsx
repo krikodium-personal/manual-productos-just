@@ -117,16 +117,20 @@ function SearchContent() {
         fetchProducts();
     }, []);
 
+    // Accent removal helper
+    const normalize = (text: string) =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
     // Derived State
     const filteredProducts = useMemo(() => {
         if (!searchTerm || searchTerm.length < 2) return [];
-        const term = searchTerm.toLowerCase();
+        const term = normalize(searchTerm);
 
         return products.filter(p => {
-            const nameMatch = p.name ? p.name.toLowerCase().includes(term) : false;
-            const descShortMatch = p.description_short ? p.description_short.toLowerCase().includes(term) : false;
-            const descLongMatch = p.description_long ? p.description_long.toLowerCase().includes(term) : false;
-            const codeMatch = p.product_code ? p.product_code.toLowerCase().includes(term) : false;
+            const nameMatch = p.name ? normalize(p.name).includes(term) : false;
+            const descShortMatch = p.description_short ? normalize(p.description_short).includes(term) : false;
+            const descLongMatch = p.description_long ? normalize(p.description_long).includes(term) : false;
+            const codeMatch = p.product_code ? normalize(p.product_code).includes(term) : false;
 
             return nameMatch || descShortMatch || descLongMatch || codeMatch;
         });
@@ -134,11 +138,11 @@ function SearchContent() {
 
     const filteredIngredients = useMemo(() => {
         if (!searchTerm || searchTerm.length < 3) return [];
-        const term = searchTerm.toLowerCase();
+        const term = normalize(searchTerm);
         const ingredients = new Map();
         products.forEach(product => {
             product.ingredients?.forEach((ing: any) => {
-                if (ing.ingredient_id && ing.ingredient_id.name && ing.ingredient_id.name.toLowerCase().includes(term)) {
+                if (ing.ingredient_id && ing.ingredient_id.name && normalize(ing.ingredient_id.name).includes(term)) {
                     ingredients.set(ing.ingredient_id.id, ing.ingredient_id);
                 }
             });
