@@ -7,6 +7,7 @@ interface Country {
     id: string | number;
     name: string;
     domain?: string;
+    currency_symbol?: string;
 }
 
 interface CountryContextType {

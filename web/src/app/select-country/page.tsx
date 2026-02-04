@@ -26,7 +26,7 @@ export default function SelectCountryPage() {
         async function fetchCountries() {
             try {
                 const res = await directus.request(readItems('countries', {
-                    fields: ['id', 'name'],
+                    fields: ['id', 'name', 'currency_symbol'],
                     sort: ['name']
                 }));
                 // @ts-ignore

@@ -463,7 +463,10 @@ function CalculatorContent() {
     const usageModes = selectedProduct ? getUsageModes(selectedProduct) : [];
     const isFrequencyDisabled = applicationType === '';
 
-    const formatCurrency = (val: string | number) => `$ ${val.toString().replace('.', ',')}`;
+    const formatCurrency = (val: string | number) => {
+        const symbol = selectedCountry?.currency_symbol || '$';
+        return `${symbol} ${val.toString().replace('.', ',')}`;
+    };
 
     const frequencyMap: { [key: string]: string } = {
         'daily_1': '1 vez al día',
