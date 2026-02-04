@@ -84,6 +84,7 @@ function SearchContent() {
                         'id',
                         'name',
                         'slug',
+                        'photo',
                         'product_code',
                         'description_short',
                         'description_long',
