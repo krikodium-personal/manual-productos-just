@@ -3,16 +3,15 @@
 .main {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    /*Changed from center to stretch to ensure full width children*/
     padding: 16px 0px 0px;
     gap: 24px;
     width: 100%;
     min-height: 100vh;
     background: #FFFFFF;
+    box-sizing: border-box;
 }
-
-/* Header Spacer to account for absolute header if needed, but flex gap handles it usually. 
-   User CSS has a header at 60px height. */
 
 .introSection {
     display: flex;
@@ -21,7 +20,9 @@
     padding: 0px 24px;
     gap: 8px;
     width: 100%;
-    max-width: 100%;
+    max-width: none;
+    /* Explicitly none */
+    box-sizing: border-box;
 }
 
 .introEyebrow {
@@ -52,14 +53,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Centering cards in desktop view */
     padding: 32px 24px 44px;
     gap: 32px;
     width: 100%;
-    /* max-width: 375px;  Removing max-width strict constraint for background to span full width if desired, but content is 375 */
     background: linear-gradient(180deg, #F5F6FF 0%, #FAFAFC 100%);
     flex-grow: 1;
-    /* Extend to bottom */
+    box-sizing: border-box;
 }
 
 /* Common Card Styles */
@@ -70,10 +69,12 @@
     padding: 24px;
     gap: 16px;
     width: 100%;
-    /* max-width: 327px; Removed to allow fluid width */
+    max-width: none;
+    /* Explicitly none */
     background: #FFFFFF;
     box-shadow: 10px 10px 25px rgba(164, 164, 215, 0.2);
     border-radius: 16px;
+    box-sizing: border-box;
 }
 
 .cardTitle {
@@ -100,13 +101,10 @@
     height: 224px;
     object-fit: cover;
     border-radius: 8px;
-    /* Gradient overlay handled via wrapper if needed or directly on img if using background-image method. 
-       User CSS uses background-image url(). We will use an overlay div or pseudo-element. */
     position: relative;
     overflow: hidden;
 }
 
-/* Image styling wrapper to match "background: linear-gradient(...), url(...)" effect */
 .imageWrapper {
     width: 100%;
     height: 224px;
@@ -114,7 +112,6 @@
     position: relative;
     overflow: hidden;
     background-color: #eee;
-    /* Loading placeholder */
 }
 
 .imageGradient {
@@ -122,17 +119,14 @@
     inset: 0;
     background: linear-gradient(0deg, rgba(255, 197, 172, 0.5), rgba(255, 197, 172, 0.5));
     mix-blend-mode: soft-light;
-    /* User CSS says soft-light, normal */
     z-index: 10;
 }
 
-/* Specific image loading style logic will happen in component */
 .realImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 
 .cardText {
     font-family: var(--font-museo);
@@ -180,7 +174,6 @@
     height: 1px;
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 0px;
-    /* Gap handled by cardContent */
 }
 
 .effectsContainer {
@@ -188,7 +181,6 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0px 8px;
-    /* User CSS says 0px 8px */
     gap: 16px;
     width: 100%;
 }
@@ -214,6 +206,5 @@
 
 .bulletIcon {
     margin-top: 8px;
-    /* Optically align 5px dot with 20px line-height text. (20-5)/2 = 7.5 */
     flex-shrink: 0;
 }
