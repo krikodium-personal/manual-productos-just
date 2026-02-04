@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { directus } from '@/lib/directus';
+import { readItems } from '@directus/sdk';
 
 interface Country {
     id: string | number;
@@ -28,7 +30,26 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
         const saved = localStorage.getItem('selected_country');
         if (saved) {
             try {
-                setSelectedCountry(JSON.parse(saved));
+                const parsed = JSON.parse(saved);
+                setSelectedCountry(parsed);
+
+                // If missing symbol or domain, re-fetch to update local data
+                if (!parsed.currency_symbol || !parsed.domain) {
+                    const fetchFullDetails = async () => {
+                        try {
+                            const country = await directus.request(readItems('countries', {
+                                filter: { id: { _eq: parsed.id } },
+                                fields: ['id', 'name', 'domain', 'currency_symbol']
+                            }));
+                            if (country && country.length > 0) {
+                                selectCountry(country[0] as unknown as Country);
+                            }
+                        } catch (e) {
+                            console.error("Error re-fetching country details", e);
+                        }
+                    };
+                    fetchFullDetails();
+                }
             } catch (e) {
                 console.error("Error parsing saved country", e);
             }
