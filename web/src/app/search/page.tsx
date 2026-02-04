@@ -127,7 +127,7 @@ function SearchContent() {
             }
         }
         fetchProducts();
-    }, []);
+    }, [selectedCountry]);
 
     // Accent removal helper
     const normalize = (text: string) =>
