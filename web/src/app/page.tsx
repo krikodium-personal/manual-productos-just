@@ -8,7 +8,11 @@ import styles from './page.module.css';
 import Header from '@/components/Header';
 import { APP_VERSION } from '@/constants/version';
 
+import { useCountry } from '@/context/CountryContext';
+
 export default function Home() {
+  const { selectedCountry } = useCountry();
+
   return (
     <main className={styles.main}>
       <Header />
@@ -63,6 +67,14 @@ export default function Home() {
           textTransform: 'uppercase',
           letterSpacing: '1px'
         }}>
+          {selectedCountry && (
+            <div style={{ marginBottom: '8px', color: '#908F9A', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <span>País: {selectedCountry.name}</span>
+              <Link href="/select-country" style={{ color: '#5AAFF1', textDecoration: 'none', fontWeight: 600 }}>
+                Cambiar
+              </Link>
+            </div>
+          )}
           Versión {APP_VERSION}
         </div>
       </div>
