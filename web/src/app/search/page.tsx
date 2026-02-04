@@ -33,7 +33,8 @@ interface Product {
     id: number;
     name: string;
     slug: string;
-    photo: string;
+    description?: string;
+    description_long?: string;
     product_code?: string;
     markets: ProductMarket[];
     attributes?: any[];
@@ -85,6 +86,8 @@ function SearchContent() {
                         'slug',
                         'photo',
                         'product_code',
+                        'description',
+                        'description_long',
                         'markets.prices.price',
                         'markets.prices.variant_id.capacity_value',
                         'markets.prices.variant_id.capacity_unit',
@@ -116,8 +119,15 @@ function SearchContent() {
 
     // Derived State
     const filteredProducts = useMemo(() => {
-        if (!searchTerm) return [];
-        return products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        return products.filter(p => {
+            const term = searchTerm.toLowerCase();
+            return (
+                p.name.toLowerCase().includes(term) ||
+                (p.description && p.description.toLowerCase().includes(term)) ||
+                (p.description_long && p.description_long.toLowerCase().includes(term)) ||
+                (p.product_code && p.product_code.toLowerCase().includes(term))
+            );
+        });
     }, [searchTerm, products]);
 
     const filteredIngredients = useMemo(() => {
