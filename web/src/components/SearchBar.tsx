@@ -101,7 +101,7 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
             return `/info/needs/${result.slug || result.id}`;
         }
         if (result.type === 'ingredient') {
-            return `/search?q=${encodeURIComponent(result.name)}`;
+            return `/info/ingredients/${result.slug || result.id}`;
         }
         return `/products/${result.slug || result.id}`;
     };

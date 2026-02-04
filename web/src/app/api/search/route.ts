@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
                             _icontains: query
                         }
                     },
-                    fields: ['id', 'name', 'photo'],
+                    fields: ['id', 'name', 'photo', 'slug'],
                     limit: 5,
                     sort: ['name']
                 }));
