@@ -112,6 +112,8 @@
     color: #908F9A;
     /* Updated to #908F9A per screenshot */
     margin: 0;
+    white-space: pre-line;
+    padding-bottom: 16px;
 }
 
 /* --- Base Typography --- */
