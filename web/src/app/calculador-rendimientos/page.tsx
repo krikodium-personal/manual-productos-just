@@ -164,6 +164,8 @@ interface Product {
     usage_modes?: any[];
     ingredients?: any[];
     attributes?: any[];
+    show_usage_modes?: boolean;
+    show_custom_usage_modes?: boolean;
 }
 
 // Main Content Component
@@ -241,6 +243,8 @@ function CalculatorContent() {
                         'custom_usage_modes.application_amount.name',
                         'custom_usage_modes.application_amount.amount',
                         'custom_usage_modes.application_amount.unit',
+                        'show_usage_modes',
+                        'show_custom_usage_modes',
                     ]
                 }));
                 // @ts-ignore
@@ -309,15 +313,12 @@ function CalculatorContent() {
         let modes: UsageMode[] = [];
 
         // 1. Standard Usage Modes
-        if (product.usage_modes) {
+        if (product.usage_modes && product.show_usage_modes !== false) {
             modes = product.usage_modes.map((m: any) => m.usage_mode_id).filter((u: any) => u && u.id);
         }
 
-        // 2. Custom Usage Modes (Only if product has 'gr' variant)
-        const variants = getVariants(product);
-        const hasGramVariant = variants.some(v => v.variant_id.capacity_unit.toLowerCase().includes('g'));
-
-        if (hasGramVariant && (product as any).custom_usage_modes) {
+        // 2. Custom Usage Modes
+        if (product.show_custom_usage_modes !== false && (product as any).custom_usage_modes) {
             const customModes = (product as any).custom_usage_modes.map((m: any) => ({
                 id: `custom_${m.id}`,
                 title: m.title || m.description,
