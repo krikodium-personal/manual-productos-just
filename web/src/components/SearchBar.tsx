@@ -108,12 +108,27 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
 
     // Keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (!showDropdown && e.key === 'Enter' && query.length >= 3) {
+        // Handle Enter immediately - PRIORITIZE THIS
+        if (e.key === 'Enter') {
             e.preventDefault();
-            router.push(`/search?q=${encodeURIComponent(query)}`);
+
+            // If dropdown is open AND an item is selected, go to that item
+            if (showDropdown && selectedIndex >= 0 && results[selectedIndex]) {
+                const result = results[selectedIndex];
+                const url = getResultUrl(result);
+                router.push(url);
+                setShowDropdown(false);
+            } else if (query.trim().length > 0) {
+                // Otherwise, generic search redirect immediately
+                // Force close dropdown to prevent race conditions or UI flickering
+                setShowDropdown(false);
+                // Redirect immediately
+                router.push(`/search?q=${encodeURIComponent(query)}`);
+            }
             return;
         }
 
+        // For navigation keys, we need results
         if (!showDropdown || results.length === 0) return;
 
         switch (e.key) {
@@ -124,18 +139,6 @@ export default function SearchBar({ type, placeholder = 'Buscar...', className }
             case 'ArrowUp':
                 e.preventDefault();
                 setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
-                break;
-            case 'Enter':
-                e.preventDefault();
-                if (selectedIndex >= 0 && results[selectedIndex]) {
-                    const result = results[selectedIndex];
-                    const url = getResultUrl(result);
-                    // Use router push for client side nav
-                    router.push(url);
-                } else if (query.length >= 3) {
-                    router.push(`/search?q=${encodeURIComponent(query)}`);
-                    setShowDropdown(false);
-                }
                 break;
             case 'Escape':
                 setShowDropdown(false);
