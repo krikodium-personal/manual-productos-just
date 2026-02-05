@@ -63,13 +63,26 @@ export async function GET(request: NextRequest) {
         if (type === 'needs' || type === 'all') {
             try {
                 const needs = await directus.request(readItems('needs', {
-                    fields: ['id', 'name', 'short_description', 'slug'],
+                    fields: [
+                        'id',
+                        'name',
+                        'short_description',
+                        'slug',
+                        'suggested_products.product_id.name'
+                    ],
                     limit: -1
                 }));
 
                 const filteredNeeds = needs.filter((n: any) => {
-                    return normalize(n.name).includes(term) ||
-                        normalize(n.short_description).includes(term);
+                    const nameMatch = normalize(n.name).includes(term);
+                    const descMatch = normalize(n.short_description).includes(term);
+
+                    // Check if any suggested product matches
+                    const productsMatch = n.suggested_products?.some((sp: any) =>
+                        sp.product_id?.name && normalize(sp.product_id.name).includes(term)
+                    );
+
+                    return nameMatch || descMatch || productsMatch;
                 }).slice(0, 5);
 
                 console.log('[Search API] Found needs:', filteredNeeds.length);
