@@ -164,16 +164,16 @@ function SearchContent() {
 
     const filteredNeeds = useMemo(() => {
         if (!searchTerm || searchTerm.length < 3) return [];
-        const term = searchTerm.toLowerCase();
+        const term = normalize(searchTerm);
         const needsMap = new Map();
         products.forEach(product => {
-            const productMatches = product.name.toLowerCase().includes(term);
+            const productMatches = product.name && normalize(product.name).includes(term);
             product.needs?.forEach((n: any) => {
                 const need = n.need_id;
                 if (!need) return;
 
-                const matchesName = need.name?.toLowerCase().includes(term);
-                const matchesDesc = need.short_description?.toLowerCase().includes(term);
+                const matchesName = need.name && normalize(need.name).includes(term);
+                const matchesDesc = need.short_description && normalize(need.short_description).includes(term);
 
                 if (matchesName || matchesDesc || productMatches) {
                     needsMap.set(need.id, need);

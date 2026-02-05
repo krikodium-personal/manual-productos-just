@@ -14,42 +14,48 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ results: [] });
     }
 
+    // Helper for accent-insensitive comparison
+    const normalize = (text: string) =>
+        text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+
+    const term = normalize(query);
+
     try {
         let allResults: any[] = [];
 
         // Search products if type is 'products' or 'all'
         if (type === 'products' || type === 'all') {
             try {
-                const productFilter: any = {
-                    _or: [
-                        { name: { _icontains: query } },
-                        { description_short: { _icontains: query } },
-                        { description_long: { _icontains: query } },
-                        { product_code: { _icontains: query } }
-                    ]
-                };
-
-                // Add country filter if provided
+                // Fetch ALL products (lightweight fields) and filter in memory
+                const productFilter: any = {};
                 if (country) {
-                    productFilter._and = [
-                        { markets: { country_id: { _eq: country } } }
-                    ];
+                    productFilter.markets = { country_id: { _eq: country } };
                 }
 
-                console.log('[Search API] Searching products with query:', query);
                 const products = await directus.request(readItems('products', {
                     filter: productFilter,
-                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code'],
-                    limit: 5,
-                    sort: ['name']
+                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code', 'description_long'],
+                    limit: -1, // Fetch all to filter locally
                 }));
 
-                console.log('[Search API] Products response:', JSON.stringify(products));
-                console.log('[Search API] Found products:', products.length);
-                allResults = [...allResults, ...products.map((p: any) => ({ ...p, type: 'product' }))];
+                const filteredProducts = products.filter((p: any) => {
+                    return normalize(p.name).includes(term) ||
+                        normalize(p.description_short).includes(term) ||
+                        normalize(p.description_long).includes(term) ||
+                        normalize(p.product_code).includes(term);
+                }).slice(0, 5); // Limit after filter
+
+                console.log('[Search API] Found products:', filteredProducts.length);
+                allResults = [...allResults, ...filteredProducts.map((p: any) => ({
+                    id: p.id,
+                    name: p.name,
+                    slug: p.slug,
+                    photo: p.photo,
+                    short_description: p.description_short, // Map to common field
+                    type: 'product'
+                }))];
             } catch (prodError) {
                 console.error('[Search API] Error searching products:', prodError);
-                console.error('[Search API] Error details:', JSON.stringify(prodError, null, 2));
             }
         }
 
@@ -57,36 +63,17 @@ export async function GET(request: NextRequest) {
         if (type === 'needs' || type === 'all') {
             try {
                 const needs = await directus.request(readItems('needs', {
-                    filter: {
-                        _or: [
-                            {
-                                name: {
-                                    _icontains: query
-                                }
-                            },
-                            {
-                                short_description: {
-                                    _icontains: query
-                                }
-                            },
-                            {
-                                suggested_products: {
-                                    product_id: {
-                                        name: {
-                                            _icontains: query
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    },
                     fields: ['id', 'name', 'short_description', 'slug'],
-                    limit: 5,
-                    sort: ['name']
+                    limit: -1
                 }));
 
-                console.log('[Search API] Found needs:', needs.length);
-                allResults = [...allResults, ...needs.map((n: any) => ({ ...n, type: 'need' }))];
+                const filteredNeeds = needs.filter((n: any) => {
+                    return normalize(n.name).includes(term) ||
+                        normalize(n.short_description).includes(term);
+                }).slice(0, 5);
+
+                console.log('[Search API] Found needs:', filteredNeeds.length);
+                allResults = [...allResults, ...filteredNeeds.map((n: any) => ({ ...n, type: 'need' }))];
             } catch (needError) {
                 console.error('[Search API] Error searching needs:', needError);
             }
@@ -96,18 +83,16 @@ export async function GET(request: NextRequest) {
         if (type === 'ingredients' || type === 'all') {
             try {
                 const ingredients = await directus.request(readItems('ingredients', {
-                    filter: {
-                        name: {
-                            _icontains: query
-                        }
-                    },
                     fields: ['id', 'name', 'photo', 'slug'],
-                    limit: 5,
-                    sort: ['name']
+                    limit: -1
                 }));
 
-                console.log('[Search API] Found ingredients:', ingredients.length);
-                allResults = [...allResults, ...ingredients.map((i: any) => ({ ...i, type: 'ingredient' }))];
+                const filteredIngredients = ingredients.filter((i: any) => {
+                    return normalize(i.name).includes(term);
+                }).slice(0, 5);
+
+                console.log('[Search API] Found ingredients:', filteredIngredients.length);
+                allResults = [...allResults, ...filteredIngredients.map((i: any) => ({ ...i, type: 'ingredient' }))];
             } catch (ingError) {
                 console.error('[Search API] Error searching ingredients:', ingError);
             }
