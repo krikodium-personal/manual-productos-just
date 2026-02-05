@@ -422,11 +422,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px 32px 24px 16px;
-    /* T:24 R:32 B:24 L:16 */
+    padding: 24px 16px;
+    /* T:24 R:16 B:24 L:16 */
     gap: 24px;
 
-    width: 343px;
+    width: 100%;
     /* height: 400px; Remove fixed height so padding is respected */
 
     /* Brand/Lilac/50 */
