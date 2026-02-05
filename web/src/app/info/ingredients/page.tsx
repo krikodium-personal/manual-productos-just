@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 import styles from './ingredients.module.css';
-import { ChevronRight, SearchIcon, ArrowBack } from '@/components/Icons';
+import { ChevronRight, SearchIcon, ArrowBack, CloseIcon } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -58,9 +58,13 @@ export default function IngredientsPage() {
 
     // Filter and Group Logic
     const groupedIngredients = useMemo(() => {
+        // Helper
+        const normalize = (text: string) =>
+            text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+
         // 1. Filter
         const filtered = ingredients.filter(item =>
-            item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            item.name && normalize(item.name).includes(normalize(searchQuery))
         );
 
         // 2. Group
@@ -115,7 +119,9 @@ export default function IngredientsPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <SearchIcon className={styles.searchIcon} />
+                        <div className={styles.searchIcon} onClick={() => setSearchQuery('')}>
+                            {searchQuery.length > 0 ? <CloseIcon /> : <SearchIcon />}
+                        </div>
                     </div>
                 </div>
             </div>

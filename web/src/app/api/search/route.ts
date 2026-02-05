@@ -34,15 +34,18 @@ export async function GET(request: NextRequest) {
 
                 const products = await directus.request(readItems('products', {
                     filter: productFilter,
-                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code', 'description_long'],
+                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code', 'description_long', 'markets.code', 'markets.country_id'],
                     limit: -1, // Fetch all to filter locally
                 }));
 
                 const filteredProducts = products.filter((p: any) => {
+                    const market = country ? p.markets?.find((m: any) => m.country_id == country) : null;
+                    const code = market?.code || p.product_code; // Fallback to current code if available/migrating
+
                     return normalize(p.name).includes(term) ||
                         normalize(p.description_short).includes(term) ||
                         normalize(p.description_long).includes(term) ||
-                        normalize(p.product_code).includes(term);
+                        (code && normalize(code).includes(term));
                 }).slice(0, 5); // Limit after filter
 
                 console.log('[Search API] Found products:', filteredProducts.length);
@@ -52,7 +55,8 @@ export async function GET(request: NextRequest) {
                     slug: p.slug,
                     photo: p.photo,
                     short_description: p.description_short, // Map to common field
-                    type: 'product'
+                    type: 'product',
+                    product_code: country ? (p.markets?.find((m: any) => m.country_id == country)?.code || p.product_code) : p.product_code
                 }))];
             } catch (prodError) {
                 console.error('[Search API] Error searching products:', prodError);

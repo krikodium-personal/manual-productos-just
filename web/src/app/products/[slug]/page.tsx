@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { readItem, readItems } from '@directus/sdk';
 import { directus } from '@/lib/directus';
 import Header from '@/components/Header';
+import { useCountry } from '@/context/CountryContext';
 import { ArrowBack, ChevronDown, ChevronRight, WarningBadge, InfoCircle, ArrowRightIcon, PlayIcon, StarBadgeIcon, SuggestedIcon, NotSuggestedIcon, LightbulbIcon, CloseIcon } from '@/components/Icons';
 import styles from './product.module.css';
 
@@ -65,6 +66,7 @@ interface Product {
 export default function ProductPage() {
     const params = useParams();
     const router = useRouter();
+    const { selectedCountry } = useCountry();
     const slug = params.slug as string;
     console.log("Rendering ProductPage with slug:", slug);
 
@@ -141,6 +143,8 @@ export default function ProductPage() {
                         'related_products.related_products_id.slug', // Fetch SLUG for links
                         'related_products.related_products_id.product_code',
                         'related_products.related_products_id.description_short',
+                        'related_products.related_products_id.markets.code',
+                        'related_products.related_products_id.markets.country_id',
                         'intro_questions',
                         // Tradition Herbal
                         'tradition_image',
@@ -575,9 +579,13 @@ ${externalUrl}`;
                                             <span className={styles.cardTitle}>{p.name}</span>
 
                                             {/* Product Code */}
-                                            {p.product_code && (
-                                                <span className={styles.cardCode}>{p.product_code}</span>
-                                            )}
+                                            {(() => {
+                                                const code = (selectedCountry && p.markets)
+                                                    ? (p.markets.find((m: any) => m.country_id === selectedCountry.id)?.code || p.product_code)
+                                                    : p.product_code;
+
+                                                return code ? <span className={styles.cardCode}>{code}</span> : null;
+                                            })()}
                                         </div>
                                     </div>
                                 );

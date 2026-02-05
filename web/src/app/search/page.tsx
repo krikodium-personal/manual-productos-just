@@ -27,6 +27,7 @@ interface VariantPrice {
 interface ProductMarket {
     id: number;
     country_id: number;
+    code?: string;
     prices: VariantPrice[];
 }
 
@@ -103,6 +104,8 @@ function SearchContent() {
                         'markets.prices.price',
                         'markets.prices.variant_id.capacity_value',
                         'markets.prices.variant_id.capacity_unit',
+                        'markets.code',
+                        'markets.country_id',
                         'ingredients.ingredient_id.id',
                         'ingredients.ingredient_id.name',
                         'ingredients.ingredient_id.photo',
@@ -142,7 +145,10 @@ function SearchContent() {
             const nameMatch = p.name ? normalize(p.name).includes(term) : false;
             const descShortMatch = p.description_short ? normalize(p.description_short).includes(term) : false;
             const descLongMatch = p.description_long ? normalize(p.description_long).includes(term) : false;
-            const codeMatch = p.product_code ? normalize(p.product_code).includes(term) : false;
+
+            const market = selectedCountry ? p.markets?.find(m => m.country_id === selectedCountry.id) : null;
+            const code = market?.code || p.product_code;
+            const codeMatch = code ? normalize(code).includes(term) : false;
 
             return nameMatch || descShortMatch || descLongMatch || codeMatch;
         });
@@ -292,7 +298,14 @@ function SearchContent() {
                                     <div className={styles.resultTitle}>{item.name}</div>
                                     <div className={styles.resultMetaRow}>
                                         <span className={`${styles.resultMetaText} ${activeTab === 'needs' ? styles.oneLineDescription : ''}`}>
-                                            {activeTab === 'products' ? (item.product_code ? `ID: ${item.product_code}` : (item.description_short || 'Producto Just')) :
+                                            {activeTab === 'products' ? (() => {
+                                                if (selectedCountry) {
+                                                    const m = item.markets?.find((m: any) => m.country_id === selectedCountry.id);
+                                                    const code = m?.code || item.product_code;
+                                                    if (code) return `ID: ${code}`;
+                                                }
+                                                return item.product_code ? `ID: ${item.product_code}` : (item.description_short || 'Producto Just');
+                                            })() :
                                                 activeTab === 'needs' ? (item.short_description || 'Bienestar y Salud') :
                                                     'Ingrediente Natural'}
                                         </span>
