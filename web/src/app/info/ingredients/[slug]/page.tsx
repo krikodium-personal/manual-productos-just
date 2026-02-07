@@ -158,7 +158,7 @@ export default function IngredientDetailPage({ params }: { params: Promise<{ slu
                     <div className={styles.productsList}>
                         {relatedProducts.map((product) => (
                             <Link
-                                href={`/product/${product.slug || product.id}`} // Adjust route as needed
+                                href={`/products/${product.slug || product.id}`} // Adjust route as needed
                                 key={product.id}
                                 className={styles.productItem}
                             >
