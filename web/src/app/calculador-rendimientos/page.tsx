@@ -223,11 +223,11 @@ function CalculatorContent() {
                         'name',
                         'slug',
                         'photo',
+                        'variants.variant_id.id',
+                        'variants.variant_id.capacity_value',
+                        'variants.variant_id.capacity_unit',
                         'variants.prices.market', // Was markets.id/country_id
                         'variants.prices.price',
-                        'variants.prices.variant_id.id',
-                        'variants.prices.variant_id.capacity_value',
-                        'variants.prices.variant_id.capacity_unit',
                         // usage modes
                         'usage_modes.usage_mode_id.id',
                         'usage_modes.usage_mode_id.title',
@@ -311,9 +311,13 @@ function CalculatorContent() {
                     // market can be object or ID depending on fetch. We fetched 'variants.prices.market' (ID or M2O object)
                     const marketId = typeof p.market === 'object' ? p.market?.id : p.market;
                     if (marketId === selectedCountry.id) {
-                        // Ensure variant_id relation exists and has capacity data
-                        if (p.variant_id && p.variant_id.capacity_value) {
-                            validPrices.push(p);
+                        // Ensure variant_id relation exists on parent (v) and has capacity data
+                        if (v.variant_id && v.variant_id.capacity_value) {
+                            // Construct valid price object with variant info from parent
+                            validPrices.push({
+                                ...p,
+                                variant_id: v.variant_id
+                            });
                         }
                     }
                 });
