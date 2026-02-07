@@ -84,12 +84,15 @@ export default function ProductPage() {
     };
 
     // State for Ingredients
-    const [isMainIngredientsExpanded, setIsMainIngredientsExpanded] = useState(true);
-    const [isSecondaryIngredientsExpanded, setIsSecondaryIngredientsExpanded] = useState(false);
+    const [expandedSections, setExpandedSections] = useState({ main: true, secondary: false });
     const [selectedIngredient, setSelectedIngredient] = useState<any>(null);
 
-    const toggleMainIngredients = () => setIsMainIngredientsExpanded(!isMainIngredientsExpanded);
-    const toggleSecondaryIngredients = () => setIsSecondaryIngredientsExpanded(!isSecondaryIngredientsExpanded);
+    const toggleSection = (section: 'main' | 'secondary') => {
+        setExpandedSections(prev => ({
+            ...prev,
+            [section]: !prev[section]
+        }));
+    };
 
     const openIngredientModal = (ingredient: any) => {
         setSelectedIngredient(ingredient);
@@ -335,11 +338,7 @@ ${externalUrl}`;
                     const mainIngredients = product.ingredients.filter((i: any) => i.is_main);
                     const secondaryIngredients = product.ingredients.filter((i: any) => !i.is_main);
 
-                    const shouldShowMainToggle = mainIngredients.length > 4;
-                    const visibleMainIngredients = isMainIngredientsExpanded ? mainIngredients : mainIngredients.slice(0, 4);
 
-                    const shouldShowSecondaryToggle = secondaryIngredients.length > 4;
-                    const visibleSecondaryIngredients = isSecondaryIngredientsExpanded ? secondaryIngredients : secondaryIngredients.slice(0, 4);
 
                     return (
                         <section className={styles.ingredientsSection}>
