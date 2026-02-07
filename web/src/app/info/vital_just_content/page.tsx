@@ -115,7 +115,8 @@ export default function VitalJustPage() {
 
     const getImageUrl = (imageId?: string) => {
         if (!imageId) return null;
-        return `http://localhost:8055/assets/${imageId}`;
+        const baseUrl = process.env.NEXT_PUBLIC_DIRECTUS_URL || 'https://directus-production-4078.up.railway.app';
+        return `${baseUrl}/assets/${imageId}`;
     };
 
     // Construct lines array for rendering loop from fixed fields
