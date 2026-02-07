@@ -340,11 +340,11 @@ ${externalUrl}`;
 
 
 
-                    const shouldShowMainToggle = mainIngredients.length > 4;
-                    const displayedMain = shouldShowMainToggle && !expandedSections.main ? mainIngredients.slice(0, 4) : mainIngredients;
+                    const shouldShowMainToggle = mainIngredients.length > 5;
+                    const displayedMain = shouldShowMainToggle && !expandedSections.main ? mainIngredients.slice(0, 5) : mainIngredients;
 
-                    const shouldShowSecondaryToggle = secondaryIngredients.length > 4;
-                    const displayedSecondary = shouldShowSecondaryToggle && !expandedSections.secondary ? secondaryIngredients.slice(0, 4) : secondaryIngredients;
+                    const shouldShowSecondaryToggle = secondaryIngredients.length > 5;
+                    const displayedSecondary = shouldShowSecondaryToggle && !expandedSections.secondary ? secondaryIngredients.slice(0, 5) : secondaryIngredients;
 
                     return (
                         <section className={styles.ingredientsSection}>
