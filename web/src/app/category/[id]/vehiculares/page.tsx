@@ -7,6 +7,7 @@ import { directus, getAssetUrl } from '@/lib/directus';
 import Header from '@/components/Header';
 import { ChevronRight } from '@/components/Icons';
 import styles from './vehiculares.module.css';
+import { useCountry } from '@/context/CountryContext';
 import Link from 'next/link';
 
 interface Advantage {
@@ -38,11 +39,14 @@ const TriangleIcon = () => (
 
 export default function VehicularesPage() {
     const router = useRouter();
+    const { selectedCountry } = useCountry();
     const [content, setContent] = useState<VehicularContent | null>(null);
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (!selectedCountry) return;
+
         async function fetchData() {
             try {
                 // Fetch content and advantages
@@ -52,11 +56,13 @@ export default function VehicularesPage() {
                 }));
 
                 // Fetch products for category 7 (Vehiculares)
+                // Filter by country availability (variants.prices.market)
                 const productsResult = await directus.request(readItems('products', {
                     filter: {
-                        category: {
-                            _eq: 7
-                        }
+                        _and: [
+                            { category: { _eq: 7 } },
+                            { variants: { prices: { market: { _eq: selectedCountry!.id } } } }
+                        ]
                     },
                     fields: ['id', 'name', 'photo', 'product_code', 'slug'],
                     sort: ['id']
@@ -83,7 +89,7 @@ export default function VehicularesPage() {
         }
 
         fetchData();
-    }, []);
+    }, [selectedCountry]);
 
     if (loading) {
         return (
