@@ -45,8 +45,9 @@
 
 .cardImageContainer {
     /* thumb video */
-    width: 295px;
-    height: 157px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 295 / 157;
     border-radius: 8px;
     overflow: hidden;
     flex: none;
