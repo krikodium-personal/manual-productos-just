@@ -311,14 +311,10 @@ function CalculatorContent() {
                     // market can be object or ID depending on fetch. We fetched 'variants.prices.market' (ID or M2O object)
                     const marketId = typeof p.market === 'object' ? p.market?.id : p.market;
                     if (marketId === selectedCountry.id) {
-                        // We need structure compatible with UI: { price, variant_id }
-                        // The UI expects an array of prices? Or variants?
-                        // original code returned market.prices array.
-                        // interface VariantPrice { price: number; variant_id: ... }
-                        // So we push the price object itself, which contains variant_id nested?
-                        // Actually fetching fields: 'variants.prices.variant_id.id', etc.
-                        // So 'p' is the price object.
-                        validPrices.push(p);
+                        // Ensure variant_id relation exists and has capacity data
+                        if (p.variant_id && p.variant_id.capacity_value) {
+                            validPrices.push(p);
+                        }
                     }
                 });
             }
@@ -702,7 +698,7 @@ ${productUrl}`;
                                         }}
                                         placeholder="Selecciona un tamaño de producto"
                                         options={currentVariants.map((v, idx) => ({
-                                            label: `${v.variant_id.capacity_value} ${v.variant_id.capacity_unit}`,
+                                            label: `${v.variant_id?.capacity_value || '?'} ${v.variant_id?.capacity_unit || ''}`,
                                             value: idx
                                         }))}
                                     />
