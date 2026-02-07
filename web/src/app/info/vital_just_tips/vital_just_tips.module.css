@@ -68,8 +68,9 @@
    Aroma had .photoContainer. Let's mimic that. */
 /* Image inside standard item */
 .photoContainer {
-    width: 289px;
-    height: 155px;
+    width: calc(100% - 36px);
+    height: auto;
+    aspect-ratio: 289 / 155;
     flex-shrink: 0;
     margin-left: 36px;
     /* Align with text (24px icon + 12px gap) */
@@ -85,7 +86,8 @@
 
 .placeholderImage {
     background: #F0F0F0;
-    height: 155px;
+    height: auto;
+    aspect-ratio: 289 / 155;
     border-radius: 8px;
     display: flex;
     align-items: center;
