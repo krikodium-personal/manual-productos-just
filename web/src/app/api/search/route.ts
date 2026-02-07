@@ -29,35 +29,60 @@ export async function GET(request: NextRequest) {
                 // Fetch ALL products (lightweight fields) and filter in memory
                 const productFilter: any = {};
                 if (country) {
-                    productFilter.markets = { country_id: { _eq: country } };
+                    productFilter.variants = { prices: { market: { _eq: country } } };
                 }
 
                 const products = await directus.request(readItems('products', {
                     filter: productFilter,
-                    fields: ['id', 'name', 'slug', 'photo', 'description_short', 'product_code', 'description_long', 'markets.code', 'markets.country_id'],
+                    fields: [
+                        'id',
+                        'name',
+                        'slug',
+                        'photo',
+                        'description_short',
+                        'product_code',
+                        'description_long',
+                        'variants.code',
+                        'variants.prices.market'
+                    ],
                     limit: -1, // Fetch all to filter locally
                 }));
 
                 const filteredProducts = products.filter((p: any) => {
-                    const market = country ? p.markets?.find((m: any) => m.country_id == country) : null;
-                    const code = market?.code || p.product_code; // Fallback to current code if available/migrating
+                    const variants = p.variants || [];
+                    const matchesCode = variants.some((v: any) => {
+                        const hasPriceInCountry = !country || v.prices?.some((pr: any) => (pr.market == country || pr.market?.id == country));
+                        return hasPriceInCountry && v.code && normalize(v.code).includes(term);
+                    });
+
+                    const matchesLegacy = p.product_code && normalize(p.product_code).includes(term);
 
                     return normalize(p.name).includes(term) ||
                         normalize(p.description_short).includes(term) ||
                         normalize(p.description_long).includes(term) ||
-                        (code && normalize(code).includes(term));
+                        matchesCode || matchesLegacy;
                 }).slice(0, 5); // Limit after filter
 
                 console.log('[Search API] Found products:', filteredProducts.length);
-                allResults = [...allResults, ...filteredProducts.map((p: any) => ({
-                    id: p.id,
-                    name: p.name,
-                    slug: p.slug,
-                    photo: p.photo,
-                    short_description: p.description_short, // Map to common field
-                    type: 'product',
-                    product_code: country ? (p.markets?.find((m: any) => m.country_id == country)?.code || p.product_code) : p.product_code
-                }))];
+                allResults = [...allResults, ...filteredProducts.map((p: any) => {
+                    const variants = p.variants || [];
+                    // Find a code for this country if possible
+                    const relevantVariant = country
+                        ? variants.find((v: any) => v.prices?.some((pr: any) => (pr.market == country || pr.market?.id == country)))
+                        : variants[0];
+
+                    const code = relevantVariant?.code || p.product_code;
+
+                    return {
+                        id: p.id,
+                        name: p.name,
+                        slug: p.slug,
+                        photo: p.photo,
+                        short_description: p.description_short, // Map to common field
+                        type: 'product',
+                        product_code: code
+                    };
+                })];
             } catch (prodError) {
                 console.error('[Search API] Error searching products:', prodError);
             }

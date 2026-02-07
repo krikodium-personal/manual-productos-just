@@ -161,7 +161,7 @@ interface Product {
     slug: string;
     photo: string;
     product_code?: string;
-    markets: ProductMarket[];
+    variants: any[]; // [NEW] Replace markets
     usage_modes?: any[];
     ingredients?: any[];
     attributes?: any[];
@@ -215,7 +215,7 @@ function CalculatorContent() {
                     filter: {
                         _and: [
                             { show_calculator: { _neq: false } },
-                            { markets: { country_id: { _eq: selectedCountry!.id } } }
+                            { variants: { prices: { market: { _eq: selectedCountry!.id } } } }
                         ]
                     },
                     fields: [
@@ -223,12 +223,11 @@ function CalculatorContent() {
                         'name',
                         'slug',
                         'photo',
-                        'markets.id',
-                        'markets.country_id',
-                        'markets.prices.price',
-                        'markets.prices.variant_id.id',
-                        'markets.prices.variant_id.capacity_value',
-                        'markets.prices.variant_id.capacity_unit',
+                        'variants.prices.market', // Was markets.id/country_id
+                        'variants.prices.price',
+                        'variants.prices.variant_id.id',
+                        'variants.prices.variant_id.capacity_value',
+                        'variants.prices.variant_id.capacity_unit',
                         // usage modes
                         'usage_modes.usage_mode_id.id',
                         'usage_modes.usage_mode_id.title',
@@ -300,10 +299,32 @@ function CalculatorContent() {
 
     // Helper to get variants
     const getVariants = (product: Product) => {
-        if (!product.markets || !selectedCountry) return [];
-        const market = product.markets.find((m: any) => m.country_id == selectedCountry.id);
-        if (!market || !market.prices) return [];
-        return market.prices;
+        if (!product.variants || !selectedCountry) return [];
+
+        const validPrices: any[] = [];
+
+        // Flatten: product -> variants -> prices (where market == selectedCountry)
+        product.variants.forEach((v: any) => {
+            if (v.prices) {
+                v.prices.forEach((p: any) => {
+                    // Check if price belongs to selected market
+                    // market can be object or ID depending on fetch. We fetched 'variants.prices.market' (ID or M2O object)
+                    const marketId = typeof p.market === 'object' ? p.market?.id : p.market;
+                    if (marketId === selectedCountry.id) {
+                        // We need structure compatible with UI: { price, variant_id }
+                        // The UI expects an array of prices? Or variants?
+                        // original code returned market.prices array.
+                        // interface VariantPrice { price: number; variant_id: ... }
+                        // So we push the price object itself, which contains variant_id nested?
+                        // Actually fetching fields: 'variants.prices.variant_id.id', etc.
+                        // So 'p' is the price object.
+                        validPrices.push(p);
+                    }
+                });
+            }
+        });
+
+        return validPrices;
     };
 
     // Helper to get usage modes

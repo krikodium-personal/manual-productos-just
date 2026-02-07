@@ -14,21 +14,20 @@ import { directus, getAssetUrl } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 import { useCountry } from '@/context/CountryContext';
 
-// Types
+interface ProductVariant {
+    id: number;
+    code?: string;
+    prices: VariantPrice[];
+}
+
 interface VariantPrice {
     price: number;
+    country_id: number;
     variant_id: {
         id: number;
         capacity_value: number;
         capacity_unit: string;
     };
-}
-
-interface ProductMarket {
-    id: number;
-    country_id: number;
-    code?: string;
-    prices: VariantPrice[];
 }
 
 interface Product {
@@ -38,7 +37,7 @@ interface Product {
     description_short?: string;
     description_long?: string;
     product_code?: string;
-    markets: ProductMarket[];
+    variants: ProductVariant[];
     attributes?: any[];
     needs?: any[];
     ingredients?: any[];
@@ -86,9 +85,11 @@ function SearchContent() {
             try {
                 const results = await directus.request(readItems('products', {
                     filter: {
-                        markets: {
-                            country_id: {
-                                _eq: selectedCountry!.id
+                        variants: {
+                            prices: {
+                                market: {
+                                    _eq: selectedCountry!.id
+                                }
                             }
                         }
                     },
@@ -101,11 +102,11 @@ function SearchContent() {
                         'product_code',
                         'description_short',
                         'description_long',
-                        'markets.prices.price',
-                        'markets.prices.variant_id.capacity_value',
-                        'markets.prices.variant_id.capacity_unit',
-                        'markets.code',
-                        'markets.country_id',
+                        'variants.prices.price',
+                        'variants.prices.variant_id.capacity_value',
+                        'variants.prices.variant_id.capacity_unit',
+                        'variants.prices.market',
+                        'variants.code',
                         'ingredients.ingredient_id.id',
                         'ingredients.ingredient_id.name',
                         'ingredients.ingredient_id.photo',
@@ -146,11 +147,25 @@ function SearchContent() {
             const descShortMatch = p.description_short ? normalize(p.description_short).includes(term) : false;
             const descLongMatch = p.description_long ? normalize(p.description_long).includes(term) : false;
 
-            const market = selectedCountry ? p.markets?.find(m => m.country_id === selectedCountry.id) : null;
-            const code = market?.code || p.product_code;
-            const codeMatch = code ? normalize(code).includes(term) : false;
+            // Start check prices codes
+            // We need to check if ANY variant has a price for this market AND if that variant text/code matches
+            const variants = p.variants || [];
 
-            return nameMatch || descShortMatch || descLongMatch || codeMatch;
+            // Filter variants relevant to this country (optimization, though technically we just want to match search term)
+            // But we only want to show products available in this country. Filter above handles availability.
+            // Client side match:
+            const matchesCode = variants.some(v => {
+                // Check if this variant has a price for selected country
+                const hasPrice = v.prices?.some((pr: any) => pr.market === selectedCountry?.id || pr.market?.id === selectedCountry?.id);
+                if (!hasPrice) return false;
+
+                // Match Code
+                return v.code && normalize(v.code).includes(term);
+            });
+
+            const matchesLegacy = p.product_code && normalize(p.product_code).includes(term);
+
+            return nameMatch || descShortMatch || descLongMatch || matchesCode || matchesLegacy;
         });
     }, [searchTerm, products]);
 
@@ -300,8 +315,11 @@ function SearchContent() {
                                         <span className={`${styles.resultMetaText} ${activeTab === 'needs' ? styles.oneLineDescription : ''}`}>
                                             {activeTab === 'products' ? (() => {
                                                 if (selectedCountry) {
-                                                    const m = item.markets?.find((m: any) => m.country_id === selectedCountry.id);
-                                                    const code = m?.code || item.product_code;
+                                                    const variants = item.variants || [];
+                                                    const relevantVariant = variants.find((v: any) =>
+                                                        v.prices?.some((pr: any) => pr.country_id === selectedCountry.id)
+                                                    );
+                                                    const code = relevantVariant?.code || item.product_code;
                                                     if (code) return `ID: ${code}`;
                                                 }
                                                 return item.product_code ? `ID: ${item.product_code}` : (item.description_short || 'Producto Just');

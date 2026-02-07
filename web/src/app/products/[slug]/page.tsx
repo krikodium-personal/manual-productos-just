@@ -26,7 +26,7 @@ interface Product {
     attributes?: any[];
     ingredients?: any[];
     related_products?: any[];
-    markets?: any[]; // [NEW] Country-first markets
+    variants?: any[]; // [NEW] Replace markets with variants hierarchy
 
     // JSON Fields or O2M
     benefits?: any[] | null;
@@ -142,22 +142,21 @@ export default function ProductPage() {
                         'related_products.related_products_id.id',
                         'related_products.related_products_id.slug', // Fetch SLUG for links
                         'related_products.related_products_id.product_code',
-                        'related_products.related_products_id.description_short',
-                        'related_products.related_products_id.markets.code',
-                        'related_products.related_products_id.markets.country_id',
+                        'related_products.related_products_id.variants.code',
+                        'related_products.related_products_id.variants.prices.price',
+                        'related_products.related_products_id.variants.prices.country_id',
                         'intro_questions',
                         // Tradition Herbal
                         'tradition_image',
                         'tradition_title',
                         'tradition_text',
                         'tradition_extraction',
-                        // Country-First Markets
-                        'markets.*',
-                        'markets.country_id.*',
-                        'markets.variants.*',
-                        'markets.*',
-                        'markets.country_id.*',
-                        'markets.variants.*',
+                        // Country-First Prices via Variants
+                        'variants.code',
+                        'variants.variant_id.*',
+                        'variants.prices.*',
+                        'variants.prices.country_id', // keeping just in case old code relies on it, but likely should be market
+                        'variants.prices.market.*',   // [NEW] fetch market details including domain
                         'custom_usage_mode',
                         'custom_usage_modes.description',
                         'custom_usage_modes.application_amount.amount',
@@ -226,11 +225,17 @@ export default function ProductPage() {
         // Since we don't have a global country selector, we'll try to find any market with a domain.
         let domain = "";
 
-        if (product.markets && product.markets.length > 0) {
-            // Find first market with a valid country domain
-            const marketWithDomain = product.markets.find((m: any) => m.country_id && m.country_id.domain);
-            if (marketWithDomain) {
-                domain = marketWithDomain.country_id.domain;
+        if (product.variants && product.variants.length > 0) {
+            // Find first variant that has a price with a valid country domain
+            for (const v of product.variants) {
+                const priceWithDomain = v.prices?.find((pr: any) => {
+                    const m = pr.market || pr.country_id; // Support both just in case
+                    return m && m.domain;
+                });
+                if (priceWithDomain) {
+                    domain = (priceWithDomain.market || priceWithDomain.country_id).domain;
+                    break;
+                }
             }
         }
 
@@ -580,9 +585,15 @@ ${externalUrl}`;
 
                                             {/* Product Code */}
                                             {(() => {
-                                                const code = (selectedCountry && p.markets)
-                                                    ? (p.markets.find((m: any) => m.country_id === selectedCountry.id)?.code || p.product_code)
-                                                    : p.product_code;
+                                                let code = null;
+                                                if (selectedCountry && p.variants) {
+                                                    const relevantVariant = p.variants.find((v: any) =>
+                                                        v.prices?.some((pr: any) => (pr.market === selectedCountry.id || pr.market?.id === selectedCountry.id))
+                                                    );
+                                                    code = relevantVariant?.code;
+                                                }
+                                                // Fallback
+                                                if (!code) code = p.product_code;
 
                                                 return code ? <span className={styles.cardCode}>{code}</span> : null;
                                             })()}

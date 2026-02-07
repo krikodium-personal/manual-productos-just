@@ -91,7 +91,7 @@ function CategoryContent() {
                     filter: {
                         _and: [
                             { category: { _in: allIds } },
-                            { markets: { country_id: { _eq: selectedCountry!.id } } }
+                            { variants: { prices: { market: { _eq: selectedCountry!.id } } } }
                         ]
                     },
                     fields: ['id', 'name', 'photo', 'category', 'product_code', 'slug']
