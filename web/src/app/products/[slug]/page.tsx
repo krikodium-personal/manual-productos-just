@@ -344,57 +344,60 @@ ${externalUrl}`;
                     return (
                         <section className={styles.ingredientsSection}>
                             {/* Main Active Ingredient */}
-                            {mainIngredients.length > 0 && (
-                                <div className={styles.ingredientGroup}>
-                                    <h3
-                                        className={styles.ingredientHeader}
-                                        onClick={shouldShowMainToggle ? toggleMainIngredients : undefined}
-                                        style={{ cursor: shouldShowMainToggle ? 'pointer' : 'default' }}
-                                    >
-                                        INGREDIENTE ACTIVO PRINCIPAL
-                                        {shouldShowMainToggle && (
-                                            <div style={{ transform: isMainIngredientsExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'flex' }}>
-                                                <ChevronDown color="#5AAFF1" />
-                                            </div>
-                                        )}
-                                    </h3>
+                            <div className={styles.ingredientGroup}>
+                                <div
+                                    className={styles.ingredientHeader}
+                                    onClick={() => toggleSection('main')}
+                                >
+                                    <span>INGREDIENTE ACTIVO PRINCIPAL</span>
+                                    <span className={styles.toggleText}>
+                                        {expandedSections.main ? 'ver menos' : 'ver más'}
+                                    </span>
+                                </div>
+                                {expandedSections.main && (
                                     <div className={styles.ingredientList}>
-                                        {visibleMainIngredients.map((item: any, idx: number) => (
-                                            <div key={idx} className={styles.ingredientItem} onClick={() => openIngredientModal(item.ingredient_id)}>
-                                                <PlayIcon color="#5AAFF1" />
-                                                <span>{item.ingredient_id?.name}</span>
+                                        {mainIngredients.map((ing: any) => (
+                                            <div
+                                                key={ing.id}
+                                                className={styles.ingredientItem}
+                                                onClick={() => openIngredientModal(ing)}
+                                            >
+                                                <PlayIcon />
+                                                <span>{ing.name}</span>
                                             </div>
                                         ))}
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
 
                             {/* Secondary Ingredients */}
                             {secondaryIngredients.length > 0 && (
                                 <div className={styles.ingredientGroup}>
                                     <div
                                         className={styles.ingredientHeader}
-                                        onClick={shouldShowSecondaryToggle ? toggleSecondaryIngredients : undefined}
-                                        style={{ cursor: shouldShowSecondaryToggle ? 'pointer' : 'default' }}
+                                        onClick={() => toggleSection('secondary')}
                                     >
-                                        INGREDIENTES SECUNDARIOS
-                                        {shouldShowSecondaryToggle && (
-                                            <div style={{ transform: isSecondaryIngredientsExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'flex' }}>
-                                                <ChevronDown color="#5AAFF1" />
-                                            </div>
-                                        )}
+                                        <span>INGREDIENTES SECUNDARIOS</span>
+                                        <span className={styles.toggleText}>
+                                            {expandedSections.secondary ? 'ver menos' : 'ver más'}
+                                        </span>
                                     </div>
-                                    <div className={styles.secondaryList}>
-                                        {visibleSecondaryIngredients.map((item: any, idx: number) => (
-                                            <div key={idx} className={styles.ingredientItem} onClick={() => openIngredientModal(item.ingredient_id)}>
-                                                <PlayIcon color="#5AAFF1" />
-                                                <span>{item.ingredient_id?.name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    {expandedSections.secondary && (
+                                        <div className={styles.secondaryList}>
+                                            {secondaryIngredients.map((ing: any) => (
+                                                <div
+                                                    key={ing.id}
+                                                    className={styles.ingredientItem}
+                                                    onClick={() => openIngredientModal(ing)}
+                                                >
+                                                    <PlayIcon />
+                                                    <span>{ing.name}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </section>
+                            )}</section>
                     );
                 })()}
 

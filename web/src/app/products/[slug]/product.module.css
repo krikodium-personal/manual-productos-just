@@ -227,11 +227,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0px 0px 24px;
+    padding: 0px 16px 24px;
+    /* 16px horizontal padding */
     gap: 16px;
-    width: 343px;
-    /* Reduced from 375px to allow 16px side "padding" for the border */
-    /* Ensuring full width consistency */
+    width: 100%;
+    /* Responsive width */
     margin: 0 auto;
 
     /* Neutrals/200 */
@@ -241,6 +241,16 @@
     flex: none;
     align-self: stretch;
     flex-grow: 0;
+}
+
+.toggleText {
+    font-family: 'Museo Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #5AAFF1;
+    cursor: pointer;
+    text-transform: none;
+    /* Override parent uppercase if needed */
 }
 
 .ingredientGroup {
