@@ -238,7 +238,7 @@ function CategoryContent() {
                                 return (
                                     <Link key={sub.id} href={`/category/${id}/vehiculares`} className={styles.accordionHeader} style={{ textDecoration: 'none' }}>
                                         <div className={styles.accordionHeaderContent}>
-                                            <span className={styles.accordionTitle}>{sub.name} ({sub.products?.length || 0})</span>
+                                            <span className={styles.accordionTitle}>{sub.name}</span>
                                             <div className={styles.chevron}>
                                                 <ChevronRight />
                                             </div>
@@ -254,7 +254,7 @@ function CategoryContent() {
                                         onClick={() => toggleSubcategory(sub.id)}
                                     >
                                         <div className={styles.accordionHeaderContent}>
-                                            <span className={styles.accordionTitle}>{sub.name} ({sub.products?.length || 0})</span>
+                                            <span className={styles.accordionTitle}>{sub.name} {sub.id !== '7' && `(${sub.products?.length || 0})`}</span>
                                             <div className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}>
                                                 <ChevronDown />
                                             </div>

@@ -1,0 +1,25 @@
+{
+  "name": "product-manual",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krikodium-personal/manual-productos-just.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/krikodium-personal/manual-productos-just/issues"
+  },
+  "homepage": "https://github.com/krikodium-personal/manual-productos-just#readme",
+  "dependencies": {
+    "@directus/sdk": "^21.1.0",
+    "dotenv": "^17.2.4"
+  }
+}
