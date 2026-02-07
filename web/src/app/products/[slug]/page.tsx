@@ -144,7 +144,7 @@ export default function ProductPage() {
                         'related_products.related_products_id.product_code',
                         'related_products.related_products_id.variants.code',
                         'related_products.related_products_id.variants.prices.price',
-                        'related_products.related_products_id.variants.prices.country_id',
+                        'related_products.related_products_id.variants.prices.market',
                         'intro_questions',
                         // Tradition Herbal
                         'tradition_image',
@@ -155,7 +155,6 @@ export default function ProductPage() {
                         'variants.code',
                         'variants.variant_id.*',
                         'variants.prices.*',
-                        'variants.prices.country_id', // keeping just in case old code relies on it, but likely should be market
                         'variants.prices.market.*',   // [NEW] fetch market details including domain
                         'custom_usage_mode',
                         'custom_usage_modes.description',
@@ -229,11 +228,11 @@ export default function ProductPage() {
             // Find first variant that has a price with a valid country domain
             for (const v of product.variants) {
                 const priceWithDomain = v.prices?.find((pr: any) => {
-                    const m = pr.market || pr.country_id; // Support both just in case
+                    const m = pr.market;
                     return m && m.domain;
                 });
                 if (priceWithDomain) {
-                    domain = (priceWithDomain.market || priceWithDomain.country_id).domain;
+                    domain = priceWithDomain.market.domain;
                     break;
                 }
             }
