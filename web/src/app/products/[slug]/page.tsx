@@ -359,10 +359,10 @@ ${externalUrl}`;
                                             <div
                                                 key={ing.id}
                                                 className={styles.ingredientItem}
-                                                onClick={() => openIngredientModal(ing)}
+                                                onClick={() => openIngredientModal(ing.ingredient_id)}
                                             >
-                                                <PlayIcon />
-                                                <span>{ing.name}</span>
+                                                <PlayIcon color="#5AAFF1" />
+                                                <span>{ing.ingredient_id?.name}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -387,10 +387,10 @@ ${externalUrl}`;
                                                 <div
                                                     key={ing.id}
                                                     className={styles.ingredientItem}
-                                                    onClick={() => openIngredientModal(ing)}
+                                                    onClick={() => openIngredientModal(ing.ingredient_id)}
                                                 >
-                                                    <PlayIcon />
-                                                    <span>{ing.name}</span>
+                                                    <PlayIcon color="#5AAFF1" />
+                                                    <span>{ing.ingredient_id?.name}</span>
                                                 </div>
                                             ))}
                                         </div>
