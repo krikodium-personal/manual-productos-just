@@ -155,7 +155,7 @@ function CategoryContent() {
         }
 
         fetchData();
-    }, [id, router, expandedId]); // Add deps
+    }, [id, router, expandedId, selectedCountry]);
 
     const toggleSubcategory = (subId: string) => {
         setOpenSubcategories(prev =>
