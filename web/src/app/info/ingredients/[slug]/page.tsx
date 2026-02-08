@@ -16,6 +16,8 @@ export default function IngredientDetailPage({ params }: { params: Promise<{ slu
     const router = useRouter();
     const { slug } = use(params);
 
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -102,11 +104,14 @@ export default function IngredientDetailPage({ params }: { params: Promise<{ slu
 
             {/* Hero Image */}
             <div className={styles.heroImageContainer}>
+                {!imageLoaded && <div className={styles.skeleton} />}
                 {ingredient.photo && (
                     <img
                         src={getAssetUrl(ingredient.photo, { height: 600, quality: 85, fit: 'contain' })}
                         alt={ingredient.name}
                         className={styles.heroImage}
+                        onLoad={() => setImageLoaded(true)}
+                        style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s ease-in' }}
                     />
                 )}
             </div>
